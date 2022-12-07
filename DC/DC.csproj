@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+	  <TieredCompilation>true</TieredCompilation>
+    <RuntimeIdentifiers>win10-x64;linux-x64;alpine-x64</RuntimeIdentifiers>
+    <AspNetCoreModuleName>AspNetCoreModuleV2</AspNetCoreModuleName>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <Nullable>Enable</Nullable>
+	<ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>DC-API-EF3266B8-E405-4DFA-A44F-1ADF46826E07</UserSecretsId>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FastEndpoints" Version="5.4.1" />
+		<PackageReference Include="FastEndpoints.Generator" Version="5.4.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="FastEndpoints.Swagger" Version="5.4.1" />
+		<PackageReference Include="SecurityCodeScan.VS2019" Version="5.6.7">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Dapr.AspNetCore" Version="1.9.0" />
+	</ItemGroup>
+
+
+</Project>

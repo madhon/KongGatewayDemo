@@ -1,0 +1,112 @@
+version: '3'
+services: 
+    envoygateway:
+        container_name: envoygateway        
+        image: envoyproxy/envoy-distroless:v1.24.0
+        pull_policy: missing
+        #build: 
+        #    context: ./Envoy
+        #    dockerfile: Dockerfile        
+        restart: unless-stopped
+        ports:
+            - "9901:9901"
+            - "10000:10000"
+            - "10001:10001"
+        volumes:
+            - ./Envoy/envoy.yaml:/etc/envoy/envoy.yaml
+            - ./Envoy/envoy.crt:/etc/ssl/certs/envoy.crt
+            - ./Envoy/envoy_key.pem:/etc/ssl/certs/envoy_key.pem
+        depends_on:
+          - dcservice
+          - marvelservice
+
+    envoygateway-dapr:
+        container_name: envoygateway-dapr    
+        image: "daprio/daprd:1.9.5"
+        network_mode: "service:envoygateway"
+        depends_on:
+            - envoygateway
+        command: ["./daprd",
+          "-app-id", "envoygateway",
+          "-app-port", "10000",
+          "-placement-host-address", "placement:50000"
+        ]   
+         
+    dapr-placement:
+        container_name: placement
+        image: "daprio/dapr:1.9.5"
+        pull_policy: missing        
+        command: ["./placement", "-port", "50000", "-log-level", "debug"]
+        ports:
+          - "50000:50000"
+      
+    zipkin:
+        container_name: zipkin    
+        image: openzipkin/zipkin-slim:latest
+        pull_policy: missing        
+        ports:
+          - "5411:9411"
+          
+    dcservice:
+        container_name: dc
+        restart: unless-stopped
+        build: 
+            context: ./DC
+            dockerfile: Dockerfile
+        #ports: 
+        #  - "7001:80"
+        #  - "7002:443"
+        environment:
+            ASPNETCORE_URLS: "https://+;http://+"
+            ASPNETCORE_HTTPS_PORT: "7002"
+            ASPNETCORE_ENVIRONMENT: "Development"
+            DOTNET_RUNNING_IN_CONTAINER : "true"
+            DOTNET_SYSTEM_GLOBALIZATION_INVARIANT : "1"
+        volumes:
+             - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
+             - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/
+
+    dcservice-dapr:
+        container_name: dcservice-dapr    
+        image: "daprio/daprd:1.9.5"
+        pull_policy: missing        
+        network_mode: "service:dcservice"
+        depends_on:
+            - dcservice
+        command: ["./daprd",
+          "-app-id", "dcservice",
+          "-app-port", "80",
+          "-placement-host-address", "placement:50000"
+        ]      
+      
+    marvelservice:
+        container_name: marvel
+        restart: unless-stopped
+        build: 
+            context: ./marvel
+            dockerfile: Dockerfile
+        #ports: 
+        #  - "7003:80"
+        #  - "7004:443"
+        environment:
+            ASPNETCORE_URLS: "https://+;http://+"
+            ASPNETCORE_HTTPS_PORT: "7004"
+            ASPNETCORE_ENVIRONMENT: "Development"
+            DOTNET_RUNNING_IN_CONTAINER : "true"
+            DOTNET_SYSTEM_GLOBALIZATION_INVARIANT : "1"
+        volumes:
+             - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
+             - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/
+
+    marvelservice-dapr:
+        container_name: marvelservice-dapr    
+        image: "daprio/daprd:1.9.5"
+        pull_policy: missing        
+        network_mode: "service:marvelservice"
+        depends_on:
+            - marvelservice
+        command: ["./daprd",
+          "-app-id", "marvelservice",
+          "-app-port", "80",
+          "-placement-host-address", "placement:50000"
+        ]                  

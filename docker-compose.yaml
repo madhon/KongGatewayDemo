@@ -2,7 +2,7 @@ version: '3'
 services: 
     envoygateway:
         container_name: envoygateway        
-        image: envoyproxy/envoy-distroless:v1.25.0
+        image: envoyproxy/envoy-distroless:v1.25.1
         pull_policy: missing
         #build: 
         #    context: ./Envoy
@@ -22,7 +22,7 @@ services:
 
     envoygateway-dapr:
         container_name: envoygateway-dapr    
-        image: "daprio/daprd:1.9.5"
+        image: "daprio/daprd:1.9.6-mariner"
         network_mode: "service:envoygateway"
         depends_on:
             - envoygateway
@@ -34,7 +34,7 @@ services:
          
     dapr-placement:
         container_name: placement
-        image: "daprio/placement:1.9.5"
+        image: "daprio/placement:1.9.6-mariner"
         pull_policy: missing        
         command: ["./placement", "-port", "50000", "-log-level", "debug"]
         ports:
@@ -68,7 +68,7 @@ services:
 
     dcservice-dapr:
         container_name: dcservice-dapr    
-        image: "daprio/daprd:1.9.5"
+        image: "daprio/daprd:1.9.6-mariner"
         pull_policy: missing        
         network_mode: "service:dcservice"
         depends_on:
@@ -100,7 +100,7 @@ services:
 
     marvelservice-dapr:
         container_name: marvelservice-dapr    
-        image: "daprio/daprd:1.9.5"
+        image: "daprio/daprd:1.9.6-mariner"
         pull_policy: missing        
         network_mode: "service:marvelservice"
         depends_on:

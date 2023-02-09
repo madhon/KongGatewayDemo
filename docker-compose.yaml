@@ -2,7 +2,7 @@ version: '3'
 services: 
     envoygateway:
         container_name: envoygateway        
-        image: envoyproxy/envoy-distroless:v1.24.0
+        image: envoyproxy/envoy-distroless:v1.25.0
         pull_policy: missing
         #build: 
         #    context: ./Envoy
@@ -34,7 +34,7 @@ services:
          
     dapr-placement:
         container_name: placement
-        image: "daprio/dapr:1.9.5"
+        image: "daprio/placement:1.9.5"
         pull_policy: missing        
         command: ["./placement", "-port", "50000", "-log-level", "debug"]
         ports:

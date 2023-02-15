@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+﻿var builder = WebApplication.CreateBuilder(args);
 
-var builder = WebApplication.CreateBuilder(args);
+builder.AddSerilog();
 
 builder.Services.AddDaprClient(null);
 
@@ -33,5 +33,7 @@ if (app.Environment.IsDevelopment())
 app.MapHealthChecks("/health/startup");
 app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
 app.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
+
+app.UseSerilogRequestLogging();
 
 app.Run();

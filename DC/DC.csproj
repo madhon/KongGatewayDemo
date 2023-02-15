@@ -10,21 +10,33 @@
     <Nullable>Enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>DC-API-EF3266B8-E405-4DFA-A44F-1ADF46826E07</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FastEndpoints" Version="5.7.1" />
-		<PackageReference Include="FastEndpoints.Generator" Version="5.7.1">
+		<PackageReference Include="FastEndpoints" />
+		<PackageReference Include="FastEndpoints.Generator">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="FastEndpoints.Swagger" Version="5.7.1" />
-		<PackageReference Include="SecurityCodeScan.VS2019" Version="5.6.7">
+		<PackageReference Include="FastEndpoints.Swagger" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+		<PackageReference Include="SecurityCodeScan.VS2019">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Dapr.AspNetCore" Version="1.9.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="Dapr.AspNetCore" />
+		<PackageReference Include="Newtonsoft.Json" />
+
+		<PackageReference Include="Serilog" />
+		<PackageReference Include="Serilog.AspNetCore" />
+		<PackageReference Include="Serilog.Enrichers.Environment" />
+		<PackageReference Include="Serilog.Exceptions" />
+		<PackageReference Include="Serilog.Sinks.Async" />
+		<PackageReference Include="Serilog.Sinks.Console" />
+		<PackageReference Include="Serilog.Sinks.Seq" />
+
 	</ItemGroup>
 
 

@@ -48,6 +48,20 @@ static_resources:
           - name: envoy.filters.http.router
             typed_config:
                 "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+      transport_socket:
+        name: envoy.transport_sockets.tls
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
+          common_tls_context:
+            tls_params:
+              tls_minimum_protocol_version: TLSv1_2
+              tls_maximum_protocol_version: TLSv1_3
+            tls_certificates:
+              certificate_chain:
+                filename: /etc/ssl/certs/envoy.crt
+              private_key:
+                filename: /etc/ssl/certs/envoy_key.pem
+            alpn_protocols: h2, http/1.1               
 
   clusters:
   - name: dapr

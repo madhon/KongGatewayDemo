@@ -4,9 +4,6 @@ services:
         container_name: envoygateway        
         image: envoyproxy/envoy-distroless:v1.25.1
         pull_policy: missing
-        #build: 
-        #    context: ./Envoy
-        #    dockerfile: Dockerfile        
         restart: unless-stopped
         ports:
             - "9901:9901"
@@ -17,12 +14,13 @@ services:
             - ./Envoy/envoy.crt:/etc/ssl/certs/envoy.crt
             - ./Envoy/envoy_key.pem:/etc/ssl/certs/envoy_key.pem
         depends_on:
-          - dcservice
-          - marvelservice
+          - dapr-placement
+          - dcservice-dapr
+          - marvelservice-dapr
 
     envoygateway-dapr:
         container_name: envoygateway-dapr    
-        image: "daprio/daprd:1.9.6-mariner"
+        image: "daprio/daprd:1.10.1-mariner-linux-amd64"
         network_mode: "service:envoygateway"
         depends_on:
             - envoygateway
@@ -34,19 +32,12 @@ services:
          
     dapr-placement:
         container_name: placement
-        image: "daprio/placement:1.9.6-mariner"
+        image: "daprio/placement:1.10.1-mariner-linux-amd64"
         pull_policy: missing        
         command: ["./placement", "-port", "50000", "-log-level", "debug"]
         ports:
           - "50000:50000"
-      
-    zipkin:
-        container_name: zipkin    
-        image: openzipkin/zipkin-slim:latest
-        pull_policy: missing        
-        ports:
-          - "5411:9411"
-          
+         
     dcservice:
         container_name: dc
         restart: unless-stopped
@@ -68,7 +59,7 @@ services:
 
     dcservice-dapr:
         container_name: dcservice-dapr    
-        image: "daprio/daprd:1.9.6-mariner"
+        image: "daprio/daprd:1.10.1-mariner-linux-amd64"
         pull_policy: missing        
         network_mode: "service:dcservice"
         depends_on:
@@ -106,7 +97,7 @@ services:
 
     marvelservice-dapr:
         container_name: marvelservice-dapr    
-        image: "daprio/daprd:1.9.6-mariner"
+        image: "daprio/daprd:1.10.1-mariner-linux-amd64"
         pull_policy: missing        
         network_mode: "service:marvelservice"
         depends_on:

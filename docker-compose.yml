@@ -2,13 +2,12 @@ version: '3'
 services: 
     envoygateway:
         container_name: envoygateway        
-        image: envoyproxy/envoy-distroless:v1.25.1
+        image: envoyproxy/envoy-distroless:v1.25.2
         pull_policy: missing
         restart: unless-stopped
         ports:
             - "9901:9901"
             - "10000:10000"
-            - "10001:10001"
         volumes:
             - ./Envoy/envoy.yaml:/etc/envoy/envoy.yaml
             - ./Envoy/envoy.crt:/etc/ssl/certs/envoy.crt
@@ -20,7 +19,7 @@ services:
 
     envoygateway-dapr:
         container_name: envoygateway-dapr    
-        image: "daprio/daprd:1.10.1-mariner-linux-amd64"
+        image: "daprio/daprd:1.10.2-mariner-linux-amd64"
         network_mode: "service:envoygateway"
         depends_on:
             - envoygateway
@@ -32,7 +31,7 @@ services:
          
     dapr-placement:
         container_name: placement
-        image: "daprio/placement:1.10.1-mariner-linux-amd64"
+        image: "daprio/placement:1.10.2-mariner-linux-amd64"
         pull_policy: missing        
         command: ["./placement", "-port", "50000", "-log-level", "debug"]
         ports:
@@ -59,7 +58,7 @@ services:
 
     dcservice-dapr:
         container_name: dcservice-dapr    
-        image: "daprio/daprd:1.10.1-mariner-linux-amd64"
+        image: "daprio/daprd:1.10.2-mariner-linux-amd64"
         pull_policy: missing        
         network_mode: "service:dcservice"
         depends_on:
@@ -97,7 +96,7 @@ services:
 
     marvelservice-dapr:
         container_name: marvelservice-dapr    
-        image: "daprio/daprd:1.10.1-mariner-linux-amd64"
+        image: "daprio/daprd:1.10.2-mariner-linux-amd64"
         pull_policy: missing        
         network_mode: "service:marvelservice"
         depends_on:

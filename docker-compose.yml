@@ -37,6 +37,20 @@ services:
         ports:
           - "50000:50000"
          
+    webstatus:
+        container_name: webstatus
+        build:
+            context: .
+            dockerfile: WebStatus/Dockerfile
+        environment:
+            - ASPNETCORE_URLS=http://0.0.0.0:8080
+            - HealthChecksUI__HealthChecks__0__Name=DC
+            - HealthChecksUI__HealthChecks__0__Uri=http://dcservice/hc
+            - HealthChecksUI__HealthChecks__1__Name=Marvel
+            - HealthChecksUI__HealthChecks__1__Uri=http://marvelservice/hc
+        ports: 
+          - "5107:8080"
+
     dcservice:
         container_name: dc
         restart: unless-stopped

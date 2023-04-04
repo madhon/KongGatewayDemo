@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Envoy", "Envoy", "{4AC0D095
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D44AC9FB-68F2-4113-86B1-97579339DC62}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStatus", "WebStatus\WebStatus.csproj", "{EFB10BAC-B6D3-4614-A20A-C605E1750127}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,12 @@ Global
 		{D44AC9FB-68F2-4113-86B1-97579339DC62}.NoVariablesDefault|Any CPU.Build.0 = NoVariablesDefault
 		{D44AC9FB-68F2-4113-86B1-97579339DC62}.Release|Any CPU.ActiveCfg = NoVariablesDefault
 		{D44AC9FB-68F2-4113-86B1-97579339DC62}.Release|Any CPU.Build.0 = NoVariablesDefault
+		{EFB10BAC-B6D3-4614-A20A-C605E1750127}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFB10BAC-B6D3-4614-A20A-C605E1750127}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFB10BAC-B6D3-4614-A20A-C605E1750127}.NoVariablesDefault|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFB10BAC-B6D3-4614-A20A-C605E1750127}.NoVariablesDefault|Any CPU.Build.0 = Debug|Any CPU
+		{EFB10BAC-B6D3-4614-A20A-C605E1750127}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFB10BAC-B6D3-4614-A20A-C605E1750127}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

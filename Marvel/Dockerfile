@@ -24,6 +24,7 @@ COPY "nuget.config" "nuget.config"
 COPY "docker-compose.dcproj" "docker-compose.dcproj"
 COPY "DC/DC.csproj" "DC/DC.csproj"
 COPY "Marvel/Marvel.csproj" "Marvel/Marvel.csproj"
+COPY "WebStatus/WebStatus.csproj" "WebStatus/WebStatus.csproj"
 
 RUN dotnet restore "KongGatewayDemo.sln"
 
@@ -31,23 +32,10 @@ COPY . .
 WORKDIR /src/Marvel
 RUN dotnet publish --no-restore -c Release -o /app
 
-FROM mcr.microsoft.com/dotnet/aspnet:$VERSION
-
-
 
 FROM build AS publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENV ASPNETCORE_URLS=""http://+""
-ENV ASPNETCORE_ENVIRONMENT="Development"
-ENV DOTNET_RUNNING_IN_CONTAINER="true"
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT="1"
-EXPOSE 80/tcp
-EXPOSE 5000/tcp
-
 ENTRYPOINT ["dotnet", "Marvel.dll"]
-
-
-

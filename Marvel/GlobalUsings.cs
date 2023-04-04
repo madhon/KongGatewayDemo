@@ -1,4 +1,5 @@
 ﻿global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+global using HealthChecks.UI.Client;
 
 global using Serilog;
 global using Serilog.Events;

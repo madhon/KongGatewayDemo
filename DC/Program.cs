@@ -15,7 +15,6 @@ app.UseRouting();
 //app.UseAuthorization();
 
 
-
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -26,6 +25,12 @@ if (app.Environment.IsDevelopment())
 app.MapHealthChecks("/health/startup");
 app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
 app.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
+
+app.MapHealthChecks("/hc", new HealthCheckOptions
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.MapStrongestEndpoint();
 

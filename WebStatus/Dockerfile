@@ -11,7 +11,7 @@ EXPOSE 5000/tcp
 RUN apk add --upgrade --no-cache apk-tools openssl \
   && apk add --no-cache icu-libs
 
-HEALTHCHECK --interval=5s --timeout=5s --retries=3 CMD wget http://127.0.0.1:80/healthz -q -O - > /dev/null 2>&1
+
 
 
 FROM mcr.microsoft.com/dotnet/sdk:$VERSION  AS build
@@ -29,7 +29,7 @@ COPY "WebStatus/WebStatus.csproj" "WebStatus/WebStatus.csproj"
 RUN dotnet restore "KongGatewayDemo.sln"
 
 COPY . .
-WORKDIR /src/DC
+WORKDIR /src/WebStatus
 RUN dotnet publish --no-restore -c Release -o /app
 
 
@@ -38,4 +38,4 @@ FROM build AS publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "DC.dll"]
+ENTRYPOINT ["dotnet", "WebStatus.dll"]

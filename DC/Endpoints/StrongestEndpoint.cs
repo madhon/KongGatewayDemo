@@ -2,8 +2,7 @@
 {
     using System.Security.Cryptography;
 
-
-    public class StrongestEndpoint : EndpointWithoutRequest
+    public static class StrongestEndpoint
     {
         private static readonly string[] Characters = new[]
         {
@@ -11,16 +10,20 @@
             "Katana", "The Flash", "Wonder Women", "Acquaman"
         };
 
-        public override void Configure()
+        public static IEndpointRouteBuilder MapStrongestEndpoint(this IEndpointRouteBuilder builder)
         {
-            Get("justiceleague/strongest");
-            AllowAnonymous();
+
+            builder.MapGet("justiceleague/strongest", () =>
+            {
+                var rnd = RandomNumberGenerator.Create();
+                return Results.Ok(Characters[rnd.Next(0, Characters.Length)]);
+            })
+                .WithName("GetStrongest")
+                .WithOpenApi();
+                
+
+            return builder;
         }
 
-        public override async Task HandleAsync(CancellationToken ct)
-        {
-            var rnd = RandomNumberGenerator.Create();
-            await SendOkAsync(Characters[rnd.Next(0, Characters.Length)], ct);
-        }
     }
 }

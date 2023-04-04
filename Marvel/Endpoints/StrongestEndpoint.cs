@@ -2,25 +2,28 @@
 {
     using System.Security.Cryptography;
 
-    public class StrongestEndpoint : EndpointWithoutRequest
+    public static class StrongestEndpoint
     {
-
         private static readonly string[] Characters = new[]
         {
             "Iron Man", "Hulk", "Thor", "Captain America", "Black Widow", "Hawkeye", "War Machine", "Quicksilver",
             "Scarlet Witch", "Spider-Man", "Ant-Man", "Deadpool"
         };
 
-        public override void Configure()
+        public static IEndpointRouteBuilder MapStrongestEndpoint(this IEndpointRouteBuilder builder)
         {
-            Get("avengers/strongest");
-            AllowAnonymous();
+
+            builder.MapGet("avengers/strongest", () =>
+                {
+                    var rnd = RandomNumberGenerator.Create();
+                    return Results.Ok(Characters[rnd.Next(0, Characters.Length)]);
+                })
+                .WithName("GetStrongest")
+                .WithOpenApi();
+
+
+            return builder;
         }
 
-        public override async Task HandleAsync(CancellationToken ct)
-        {
-            var rnd = RandomNumberGenerator.Create();
-            await SendOkAsync(Characters[rnd.Next(0, Characters.Length)], ct);
-        }
     }
 }

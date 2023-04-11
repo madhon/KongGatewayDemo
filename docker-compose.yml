@@ -2,7 +2,7 @@ version: '3'
 services: 
     envoygateway:
         container_name: envoygateway        
-        image: envoyproxy/envoy-distroless:v1.25.3
+        image: envoyproxy/envoy-distroless:v1.25.4
         pull_policy: missing
         restart: unless-stopped
         ports:
@@ -61,7 +61,7 @@ services:
         #  - "7001:80"
         #  - "7002:443"
         environment:
-            ASPNETCORE_URLS: "https://+;http://+"
+            ASPNETCORE_URLS: "http://+"
             ASPNETCORE_HTTPS_PORT: "7002"
             ASPNETCORE_ENVIRONMENT: "Development"
             DOTNET_RUNNING_IN_CONTAINER : "true"
@@ -99,7 +99,7 @@ services:
         #  - "7003:80"
         #  - "7004:443"
         environment:
-            ASPNETCORE_URLS: "https://+;http://+"
+            ASPNETCORE_URLS: "http://+"
             ASPNETCORE_HTTPS_PORT: "7004"
             ASPNETCORE_ENVIRONMENT: "Development"
             DOTNET_RUNNING_IN_CONTAINER : "true"

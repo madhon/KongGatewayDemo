@@ -1,8 +1,8 @@
 version: '3'
 services: 
     envoygateway:
-        container_name: envoygateway        
-        image: envoyproxy/envoy-distroless:v1.26.0
+        container_name: envoygateway
+        image: envoyproxy/envoy-distroless:v1.26.1
         pull_policy: missing
         restart: unless-stopped
         ports:
@@ -18,8 +18,8 @@ services:
           - marvelservice-dapr
 
     envoygateway-dapr:
-        container_name: envoygateway-dapr    
-        image: "daprio/daprd:1.10.5-mariner-linux-amd64"
+        container_name: envoygateway-dapr
+        image: "daprio/daprd:1.10.7-mariner-linux-amd64"
         network_mode: "service:envoygateway"
         depends_on:
             - envoygateway
@@ -31,7 +31,7 @@ services:
          
     dapr-placement:
         container_name: placement
-        image: "daprio/placement:1.10.5-mariner-linux-amd64"
+        image: "daprio/placement:1.10.7-mariner-linux-amd64"
         pull_policy: missing        
         command: ["./placement", "-port", "50000", "-log-level", "debug"]
         ports:
@@ -66,13 +66,14 @@ services:
             ASPNETCORE_ENVIRONMENT: "Development"
             DOTNET_RUNNING_IN_CONTAINER : "true"
             DOTNET_SYSTEM_GLOBALIZATION_INVARIANT : "1"
+
         volumes:
              - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
              - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/
 
     dcservice-dapr:
-        container_name: dcservice-dapr    
-        image: "daprio/daprd:1.10.5-mariner-linux-amd64"
+        container_name: dcservice-dapr
+        image: "daprio/daprd:1.10.7-mariner-linux-amd64"
         pull_policy: missing        
         network_mode: "service:dcservice"
         depends_on:
@@ -104,13 +105,15 @@ services:
             ASPNETCORE_ENVIRONMENT: "Development"
             DOTNET_RUNNING_IN_CONTAINER : "true"
             DOTNET_SYSTEM_GLOBALIZATION_INVARIANT : "1"
+            #Serilog__LokiUrl : "http://loki:3100"
+            Serilog__SeqUrl : "http://seq:5431"
         volumes:
              - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
              - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/
 
     marvelservice-dapr:
-        container_name: marvelservice-dapr    
-        image: "daprio/daprd:1.10.5-mariner-linux-amd64"
+        container_name: marvelservice-dapr
+        image: "daprio/daprd:1.10.7-mariner-linux-amd64"
         pull_policy: missing        
         network_mode: "service:marvelservice"
         depends_on:
@@ -125,4 +128,33 @@ services:
           "-app-health-probe-interval", "3",
           "-app-health-probe-timeout", "200",
           "-app-health-threshold", "2"
-        ]                  
+        ]
+    
+    seq:
+        container_name: seq
+        image: datalust/seq:latest
+        ports:
+            - "5341:80"
+        environment:
+            - ACCEPT_EULA=Y
+
+    #loki:
+    #    container_name: loki
+    #    image: grafana/loki:2.8.2
+    #    ports:
+    #        - "3100:3100"
+    #    volumes:
+    #        - ./loki/loki-config.yaml:/etc/loki/loki-config.yaml
+    #    command: -config.file=/etc/loki/loki-config.yaml
+
+    #grafana:
+    #    container_name: grafana
+    #    image: grafana/grafana:9.5.2
+    #    environment:
+    #        - GF_AUTH_ANONYMOUS_ENABLED=true
+    #        - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    #        - GF_AUTH_DISABLE_LOGIN_FORM=true
+    #    #volumes:
+    #    #    - ./loki/ds.yaml:/etc/grafana/provisioning/datasources/datasources.yml
+    #    ports:
+    #        - "3000:3000"

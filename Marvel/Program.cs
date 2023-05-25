@@ -34,6 +34,10 @@ app.MapHealthChecks("/hc", new HealthCheckOptions
 
 app.MapStrongestEndpoint();
 
-app.UseSerilogRequestLogging();
+app.UseSerilogRequestLogging(opts =>
+{
+    opts.EnrichDiagnosticContext = SerilogExtensions.EnrichFromRequest;
+    opts.GetLevel = SerilogExtensions.ExcludeHealthChecks;
+});
 
 app.Run();

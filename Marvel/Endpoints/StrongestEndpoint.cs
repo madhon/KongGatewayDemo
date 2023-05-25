@@ -13,9 +13,14 @@
         public static IEndpointRouteBuilder MapStrongestEndpoint(this IEndpointRouteBuilder builder)
         {
 
-            builder.MapGet("avengers/strongest", () =>
+            builder.MapGet("avengers/strongest", (ILoggerFactory loggerFactory) =>
                 {
+                    var logger = loggerFactory.CreateLogger("MavellAvengers");
+                    logger.LogInformation("Begin avengers/strongest");
+
                     var rnd = RandomNumberGenerator.Create();
+
+                    logger.LogInformation("End avengers/strongest");
                     return Results.Ok(Characters[rnd.Next(0, Characters.Length)]);
                 })
                 .WithName("GetStrongest")

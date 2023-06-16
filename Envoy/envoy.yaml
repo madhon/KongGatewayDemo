@@ -1,11 +1,42 @@
+overload_manager:
+  refresh_interval: 0.25s
+  resource_monitors:
+  - name: "envoy.resource_monitors.fixed_heap"
+    typed_config:
+      "@type": type.googleapis.com/envoy.extensions.resource_monitors.fixed_heap.v3.FixedHeapConfig
+      max_heap_size_bytes: 2147483648  # 2 GiB
+  actions:
+  - name: "envoy.overload_actions.shrink_heap"
+    triggers:
+    - name: "envoy.resource_monitors.fixed_heap"
+      threshold:
+        value: 0.95
+  - name: "envoy.overload_actions.stop_accepting_requests"
+    triggers:
+    - name: "envoy.resource_monitors.fixed_heap"
+      threshold:
+        value: 0.98
+
+layered_runtime:
+  layers:
+  - name: static_layer_0
+    static_layer:
+      envoy:
+        resource_limits:
+          listener:
+            example_listener_name:
+              connection_limit: 10000
+      overload:
+        global_downstream_max_connections: 50000
+
 admin:
   access_log_path: /tmp/admin_access.log
-
   address:
     socket_address:
       protocol: TCP
       address: 0.0.0.0
       port_value: 9901
+
 static_resources:
   listeners:
   - name: listener_0
@@ -14,6 +45,11 @@ static_resources:
         protocol: TCP
         address: 0.0.0.0
         port_value: 10000
+    listener_filters:
+    - name: "envoy.filters.listener.tls_inspector"
+      typed_config:
+        "@type": type.googleapis.com/envoy.extensions.filters.listener.tls_inspector.v3.TlsInspector
+    per_connection_buffer_limit_bytes: 32768
     filter_chains:
     - filters:
       - name: envoy.filters.network.http_connection_manager
@@ -24,6 +60,17 @@ static_resources:
             typed_config:
               "@type": type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog
           stat_prefix: ingress_http
+          generate_request_id: true
+          use_remote_address: true
+          common_http_protocol_options:
+            idle_timeout: 1800s
+            headers_with_underscores_action: REJECT_REQUEST
+          http2_protocol_options:
+            max_concurrent_streams: 100
+            initial_stream_window_size: 65536
+            initial_connection_window_size: 1048576
+          stream_idle_timeout: 1800s
+          request_timeout: 1800s
           route_config:
             name: local_route
             virtual_hosts:
@@ -60,15 +107,17 @@ static_resources:
         typed_config:
           "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
           common_tls_context:
+            alpn_protocols: h2, http/1.1    
             tls_params:
               tls_minimum_protocol_version: TLSv1_2
               tls_maximum_protocol_version: TLSv1_3
+              cipher_suites: [ "ECDHE-RSA-CHACHA20-POLY1305", "ECDHE-RSA-AES256-GCM-SHA384", "ECDHE-RSA-AES256-SHA" ]
+              ecdh_curves: "P-256"
             tls_certificates:
               certificate_chain:
                 filename: /etc/ssl/certs/envoy.crt
               private_key:
                 filename: /etc/ssl/certs/envoy_key.pem
-            alpn_protocols: h2, http/1.1               
 
   clusters:
   - name: dapr
@@ -87,7 +136,6 @@ static_resources:
   - name: dc_service
     connect_timeout: 0.25s
     type: LOGICAL_DNS
-    # Comment out the following line to test on v6 networks
     dns_lookup_family: V4_ONLY
     lb_policy: ROUND_ROBIN
     load_assignment:
@@ -102,7 +150,6 @@ static_resources:
   - name: marvel_service
     connect_timeout: 0.25s
     type: LOGICAL_DNS
-    # Comment out the following line to test on v6 networks
     dns_lookup_family: V4_ONLY
     lb_policy: ROUND_ROBIN
     load_assignment:

@@ -1,4 +1,6 @@
-﻿global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+﻿global using System;
+
+global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 global using HealthChecks.UI.Client;
 
 global using Serilog;

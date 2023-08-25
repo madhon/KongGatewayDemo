@@ -1,4 +1,6 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using System.Threading.RateLimiting;
+
+var builder = WebApplication.CreateBuilder(args);
 
 builder.AddSerilog();
 
@@ -9,11 +11,44 @@ builder.Services.AddDaprClient(null);
 
 builder.Services.AddHealthChecks();
 
+builder.Services.AddProblemDetails();
+
+builder.Services.AddRateLimiter(rlo => {
+    rlo.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    rlo.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+    {
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Request.Headers.Host.ToString(), 
+            factory: partition =>
+            new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 4,
+                AutoReplenishment = true,
+                Window = TimeSpan.FromSeconds(10),
+                QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                QueueLimit = 0,
+            });
+    });
+
+    
+    rlo.OnRejected = async (context, token) =>
+    {
+        context.HttpContext.RequestServices.GetService<ILoggerFactory>()?.CreateLogger("Microsoft.AspNetCore.RateLimitingMiddleware").LogWarning("OnRejected: {RequestPath}", context.HttpContext.Request.Path);
+    };
+
+});
+
+
 var app = builder.Build();
 
 app.UseRouting();
 //app.UseAuthorization();
 
+
+
+app.UseExceptionHandler();
+app.UseStatusCodePages();
 
 if (app.Environment.IsDevelopment())
 {
@@ -22,17 +57,38 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapHealthChecks("/health/startup");
-app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
-app.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
+app.UseRateLimiter();
 
-app.MapHealthChecks("/hc", new HealthCheckOptions
+app.UseEndpoints(endpoints =>
 {
-    Predicate = _ => true,
-    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    endpoints.MapHealthChecks("/health/startup");
+    endpoints.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
+    endpoints.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
+
+    endpoints.MapHealthChecks("/hc", new HealthCheckOptions
+    {
+        Predicate = _ => true,
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
+
+    endpoints.MapStrongestEndpoint();
+
+
 });
 
-app.MapStrongestEndpoint();
+//app.MapHealthChecks("/health/startup");
+//app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
+//app.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
+
+//app.MapHealthChecks("/hc", new HealthCheckOptions
+//{
+//    Predicate = _ => true,
+//    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+//});
+
+//app.MapStrongestEndpoint();
+
+
 
 app.UseSerilogRequestLogging();
 

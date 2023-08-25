@@ -1,50 +1,50 @@
-﻿namespace DC.Extensions;
-
-using Serilog.Settings.Configuration;
-
-public static class SerilogExtensions
+﻿namespace DC.Extensions
 {
-	public static WebApplicationBuilder AddSerilog(this WebApplicationBuilder builder, string sectionName = "Serilog")
-	{
-		var serilogOptions = new SerilogOptions();
-		builder.Configuration.GetSection(sectionName).Bind(serilogOptions);
 
-		builder.Host.UseSerilog((context, loggerConfiguration) =>
-		{
-			var configOptions = new ConfigurationReaderOptions { SectionName = sectionName };
-			loggerConfiguration.ReadFrom.Configuration(context.Configuration, configOptions);
+    public static class SerilogExtensions
+    {
+        public static WebApplicationBuilder AddSerilog(this WebApplicationBuilder builder, string sectionName = "Serilog")
+        {
+            var serilogOptions = new SerilogOptions();
+            builder.Configuration.GetSection(sectionName).Bind(serilogOptions);
 
-			loggerConfiguration
-				.Enrich.WithProperty("Application", builder.Environment.ApplicationName)
-				.Enrich.FromLogContext()
-				.Enrich.WithExceptionDetails();
+            builder.Host.UseSerilog((context, loggerConfiguration) =>
+            {
+                var options = new ConfigurationReaderOptions { SectionName = sectionName };
+                loggerConfiguration.ReadFrom.Configuration(context.Configuration, options);
 
-			loggerConfiguration.MinimumLevel.Override("Microsoft", LogEventLevel.Information);
-			loggerConfiguration.MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning);
+                loggerConfiguration
+                    .Enrich.WithProperty("Application", builder.Environment.ApplicationName)
+                    .Enrich.FromLogContext()
+                    .Enrich.WithExceptionDetails();
 
-			if (serilogOptions.UseConsole)
-			{
-				loggerConfiguration.WriteTo.Async(writeTo =>
-				{
-					writeTo.Console(outputTemplate: serilogOptions.LogTemplate);
-				});
-			}
+                loggerConfiguration.MinimumLevel.Override("Microsoft", LogEventLevel.Information);
+                loggerConfiguration.MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning);
 
-			if (!string.IsNullOrEmpty(serilogOptions.SeqUrl))
-			{
-				loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl);
-			}
-		});
+                if (serilogOptions.UseConsole)
+                {
+                    loggerConfiguration.WriteTo.Async(writeTo =>
+                    {
+                        writeTo.Console(outputTemplate: serilogOptions.LogTemplate);
+                    });
+                }
 
-		return builder;
-	}
+                if (!string.IsNullOrEmpty(serilogOptions.SeqUrl))
+                {
+                    loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl);
+                }
+            });
 
-	private sealed class SerilogOptions
-	{
-		public bool UseConsole { get; set; } = true;
-		public string? SeqUrl { get; set; }
+            return builder;
+        }
 
-		public string LogTemplate { get; set; } =
-			"{Timestamp:yyyy-MM-dd HH:mm:ss.fff} {Level:u3} - {Message:lj}{NewLine}{Exception}";
-	}
+        private sealed class SerilogOptions
+        {
+            public bool UseConsole { get; set; } = true;
+            public string? SeqUrl { get; set; }
+
+            public string LogTemplate { get; set; } =
+                "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} {Level:u3} - {Message:lj}{NewLine}{Exception}";
+        }
+    }
 }

@@ -19,6 +19,9 @@
                 return Results.Ok(Characters[rnd.Next(0, Characters.Length)]);
             })
                 .WithName("GetStrongest")
+                .Produces(StatusCodes.Status200OK)
+                .Produces(StatusCodes.Status400BadRequest)
+                .Produces(StatusCodes.Status429TooManyRequests)
                 .WithOpenApi();
                 
 

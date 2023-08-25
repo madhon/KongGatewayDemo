@@ -2,7 +2,7 @@ version: '3'
 services: 
     envoygateway:
         container_name: envoygateway
-        image: envoyproxy/envoy-distroless:v1.26.1
+        image: envoyproxy/envoy-distroless:v1.26.4
         pull_policy: missing
         restart: unless-stopped
         ports:
@@ -19,7 +19,7 @@ services:
 
     envoygateway-dapr:
         container_name: envoygateway-dapr
-        image: "daprio/daprd:1.10.7-mariner-linux-amd64"
+        image: "daprio/daprd:1.11.2-mariner-linux-amd64"
         network_mode: "service:envoygateway"
         depends_on:
             - envoygateway
@@ -31,7 +31,7 @@ services:
          
     dapr-placement:
         container_name: placement
-        image: "daprio/placement:1.10.7-mariner-linux-amd64"
+        image: "daprio/placement:1.11.2-mariner-linux-amd64"
         pull_policy: missing        
         command: ["./placement", "-port", "50000", "-log-level", "debug"]
         ports:
@@ -73,7 +73,7 @@ services:
 
     dcservice-dapr:
         container_name: dcservice-dapr
-        image: "daprio/daprd:1.10.7-mariner-linux-amd64"
+        image: "daprio/daprd:1.11.2-mariner-linux-amd64"
         pull_policy: missing        
         network_mode: "service:dcservice"
         depends_on:
@@ -113,7 +113,7 @@ services:
 
     marvelservice-dapr:
         container_name: marvelservice-dapr
-        image: "daprio/daprd:1.10.7-mariner-linux-amd64"
+        image: "daprio/daprd:1.11.2-mariner-linux-amd64"
         pull_policy: missing        
         network_mode: "service:marvelservice"
         depends_on:
@@ -140,7 +140,7 @@ services:
 
     #loki:
     #    container_name: loki
-    #    image: grafana/loki:2.8.2
+    #    image: grafana/loki:2.8.4
     #    ports:
     #        - "3100:3100"
     #    volumes:
@@ -149,7 +149,7 @@ services:
 
     #grafana:
     #    container_name: grafana
-    #    image: grafana/grafana:9.5.2
+    #    image: grafana/grafana:10.1.0
     #    environment:
     #        - GF_AUTH_ANONYMOUS_ENABLED=true
     #        - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin

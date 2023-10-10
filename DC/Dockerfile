@@ -4,12 +4,12 @@ FROM mcr.microsoft.com/dotnet/aspnet:$VERSION AS base
 ENV ASPNETCORE_URLS=""http://+""
 ENV ASPNETCORE_ENVIRONMENT="Development"
 ENV DOTNET_RUNNING_IN_CONTAINER="true"
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT="1"
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT="0"
 EXPOSE 80/tcp
 EXPOSE 5000/tcp
 
 RUN apk add --upgrade --no-cache apk-tools openssl \
-  && apk add --no-cache icu-libs
+  && apk add --no-cache icu-libs tzdata
 
 HEALTHCHECK --interval=5s --timeout=5s --retries=3 CMD wget http://127.0.0.1:80/healthz -q -O - > /dev/null 2>&1
 

@@ -1,8 +1,15 @@
 ﻿using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddSerilog();
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders =
+        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -13,7 +20,7 @@ builder.Services.AddHealthChecks();
 
 builder.Services.AddProblemDetails();
 
-builder.Services.AddRateLimiter(rlo => {
+/*builder.Services.AddRateLimiter(rlo => {
     rlo.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
     rlo.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
@@ -37,10 +44,12 @@ builder.Services.AddRateLimiter(rlo => {
         context.HttpContext.RequestServices.GetService<ILoggerFactory>()?.CreateLogger("Microsoft.AspNetCore.RateLimitingMiddleware").LogWarning("OnRejected: {RequestPath}", context.HttpContext.Request.Path);
     };
 
-});
+});*/
 
 
 var app = builder.Build();
+
+app.UseForwardedHeaders();
 
 app.UseRouting();
 //app.UseAuthorization();
@@ -57,7 +66,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseRateLimiter();
+//app.UseRateLimiter();
 
 app.UseEndpoints(endpoints =>
 {

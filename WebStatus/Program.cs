@@ -1,6 +1,10 @@
-
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders =
+        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+});
 
 builder.Services
     .AddHealthChecksUI()
@@ -10,6 +14,8 @@ builder.Logging.AddJsonConsole();
 
 
 var app = builder.Build();
+
+app.UseForwardedHeaders();
 
 var pathBase = builder.Configuration["PATH_BASE"];
 if (!string.IsNullOrEmpty(pathBase))

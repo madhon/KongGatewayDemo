@@ -1,8 +1,7 @@
-version: '3'
 services: 
     envoygateway:
         container_name: envoygateway
-        image: envoyproxy/envoy-distroless:v1.26.4
+        image: envoyproxy/envoy-distroless:v1.27.0
         pull_policy: missing
         restart: unless-stopped
         ports:
@@ -81,13 +80,7 @@ services:
         command: ["./daprd",
           "-app-id", "dcservice",
           "-app-port", "80",
-          "-placement-host-address", "placement:50000",
-          "-app-protocol", "http",
-          "-enable-app-health-check",
-          "-app-health-check-path", "/healhtz",
-          "-app-health-probe-interval", "3",
-          "-app-health-probe-timeout", "200",
-          "-app-health-threshold", "2"
+          "-placement-host-address", "placement:50000"
         ]      
       
     marvelservice:
@@ -121,13 +114,7 @@ services:
         command: ["./daprd",
           "-app-id", "marvelservice",
           "-app-port", "80",
-          "-placement-host-address", "placement:50000",
-          "-app-protocol", "http",
-          "-enable-app-health-check",
-          "-app-health-check-path", "/healhtz",
-          "-app-health-probe-interval", "3",
-          "-app-health-probe-timeout", "200",
-          "-app-health-threshold", "2"
+          "-placement-host-address", "placement:50000"
         ]
     
     seq:

@@ -30,7 +30,6 @@ layered_runtime:
         global_downstream_max_connections: 50000
 
 admin:
-  access_log_path: /tmp/admin_access.log
   address:
     socket_address:
       protocol: TCP

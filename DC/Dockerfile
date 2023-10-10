@@ -11,7 +11,7 @@ EXPOSE 5000/tcp
 RUN apk add --upgrade --no-cache apk-tools openssl \
   && apk add --no-cache icu-libs tzdata
 
-HEALTHCHECK --interval=5s --timeout=5s --retries=3 CMD wget http://127.0.0.1:80/healthz -q -O - > /dev/null 2>&1
+#HEALTHCHECK --interval=5s --timeout=5s --retries=3 CMD wget http://127.0.0.1:80/healthz -q -O - > /dev/null 2>&1
 
 
 FROM mcr.microsoft.com/dotnet/sdk:$VERSION  AS build

@@ -2,7 +2,7 @@
   <ItemGroup>
     <!-- System packages -->
     <!-- Microsoft packages -->
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="7.0.12" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="7.0.13" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     <!-- 3rd party packages -->
     <PackageVersion Include="Dapr.AspNetCore" Version="1.12.0" />

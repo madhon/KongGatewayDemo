@@ -1,7 +1,4 @@
-﻿using System.Threading.RateLimiting;
-using Microsoft.AspNetCore.HttpOverrides;
-
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
 builder.AddSerilog();
 
@@ -68,36 +65,17 @@ if (app.Environment.IsDevelopment())
 
 //app.UseRateLimiter();
 
-app.UseEndpoints(endpoints =>
+app.MapHealthChecks("/health/startup");
+app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
+app.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
+
+app.MapHealthChecks("/hc", new HealthCheckOptions
 {
-    endpoints.MapHealthChecks("/health/startup");
-    endpoints.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
-    endpoints.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
-
-    endpoints.MapHealthChecks("/hc", new HealthCheckOptions
-    {
-        Predicate = _ => true,
-        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-    });
-
-    endpoints.MapStrongestEndpoint();
-
-
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
 
-//app.MapHealthChecks("/health/startup");
-//app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
-//app.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
-
-//app.MapHealthChecks("/hc", new HealthCheckOptions
-//{
-//    Predicate = _ => true,
-//    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-//});
-
-//app.MapStrongestEndpoint();
-
-
+app.MapStrongestEndpoint();
 
 app.UseSerilogRequestLogging();
 

@@ -1,4 +1,4 @@
-﻿ARG VERSION=7.0-alpine
+﻿ARG VERSION=8.0-alpine
 
 FROM mcr.microsoft.com/dotnet/aspnet:$VERSION AS base
 ENV ASPNETCORE_URLS=""http://+""

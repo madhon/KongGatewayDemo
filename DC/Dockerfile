@@ -1,18 +1,17 @@
 ﻿ARG VERSION=8.0-alpine
 
 FROM mcr.microsoft.com/dotnet/aspnet:$VERSION AS base
+WORKDIR /app
 ENV ASPNETCORE_URLS=""http://+""
+ENV ASPNETCORE_HTTP_PORTS="80"
 ENV ASPNETCORE_ENVIRONMENT="Development"
 ENV DOTNET_RUNNING_IN_CONTAINER="true"
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT="0"
 EXPOSE 80/tcp
-EXPOSE 5000/tcp
 
-RUN apk add --upgrade --no-cache apk-tools openssl \
-  && apk add --no-cache icu-libs tzdata
+RUN apk add --upgrade --no-cache apk-tools openssl icu-libs tzdata
 
 #HEALTHCHECK --interval=5s --timeout=5s --retries=3 CMD wget http://127.0.0.1:80/healthz -q -O - > /dev/null 2>&1
-
 
 FROM mcr.microsoft.com/dotnet/sdk:$VERSION  AS build
 WORKDIR /src
@@ -30,12 +29,13 @@ RUN dotnet restore "KongGatewayDemo.sln"
 
 COPY . .
 WORKDIR /src/DC
-RUN dotnet publish --no-restore -c Release -o /app
+RUN dotnet publish --no-restore -c Release -o /app/publish /p:UseAppHost=false
 
 
 FROM build AS publish
 
 FROM base AS final
+USER $APP_UID
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "DC.dll"]

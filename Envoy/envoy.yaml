@@ -81,21 +81,18 @@ static_resources:
                 route:
                   prefix_rewrite: "/v1.0/invoke/dcservice/method/justiceleague/"
                   auto_host_rewrite: true
-                  #host_rewrite_literal: www.google.com
                   cluster: dapr
               - match:
                   prefix: "/m/"
                 route:
                   prefix_rewrite: "/v1.0/invoke/marvelservice/method/avengers/"
                   auto_host_rewrite: true
-                  #host_rewrite_literal: www.google.com
                   cluster: dapr
               - match:
                   prefix: "/menv"
                 route:
                   prefix_rewrite: "/v1.0/invoke/marvelservice/method/env"
                   auto_host_rewrite: true
-                  #host_rewrite_literal: www.google.com
                   cluster: dapr
           http_filters:
           - name: envoy.filters.http.router

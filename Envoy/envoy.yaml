@@ -1,21 +1,32 @@
 overload_manager:
   refresh_interval: 0.25s
   resource_monitors:
-  - name: "envoy.resource_monitors.fixed_heap"
-    typed_config:
-      "@type": type.googleapis.com/envoy.extensions.resource_monitors.fixed_heap.v3.FixedHeapConfig
-      max_heap_size_bytes: 2147483648  # 2 GiB
+    - name: "envoy.resource_monitors.fixed_heap"
+      typed_config:
+        "@type": type.googleapis.com/envoy.extensions.resource_monitors.fixed_heap.v3.FixedHeapConfig
+        max_heap_size_bytes: 2147483648  # 2 GiB
+    - name: "envoy.resource_monitors.global_downstream_max_connections"
+      typed_config:
+        "@type" : type.googleapis.com/envoy.extensions.resource_monitors.downstream_connections.v3.DownstreamConnectionsConfig
+        max_active_downstream_connections: 50000
   actions:
-  - name: "envoy.overload_actions.shrink_heap"
-    triggers:
-    - name: "envoy.resource_monitors.fixed_heap"
-      threshold:
-        value: 0.95
-  - name: "envoy.overload_actions.stop_accepting_requests"
-    triggers:
-    - name: "envoy.resource_monitors.fixed_heap"
-      threshold:
-        value: 0.98
+    - name: "envoy.overload_actions.disable_http_keepalive"
+      triggers:
+      - name: "envoy.resource_monitors.fixed_heap"
+        threshold:
+          value: 0.92
+    - name: "envoy.overload_actions.stop_accepting_requests"
+      triggers:
+      - name: "envoy.resource_monitors.fixed_heap"
+        threshold:
+          value: 0.95
+  loadshed_points:
+    - name: "envoy.load_shed_points.tcp_listener_accept"
+      triggers:
+        - name: "envoy.resource_monitors.fixed_heap"
+          threshold:
+            value: 0.95
+
 
 layered_runtime:
   layers:
@@ -26,8 +37,7 @@ layered_runtime:
           listener:
             example_listener_name:
               connection_limit: 10000
-      overload:
-        global_downstream_max_connections: 50000
+
 
 admin:
   address:
@@ -61,6 +71,9 @@ static_resources:
           stat_prefix: ingress_http
           generate_request_id: true
           use_remote_address: true
+          normalize_path: true
+          merge_slashes: true
+          path_with_escaped_slashes_action: UNESCAPE_AND_REDIRECT
           common_http_protocol_options:
             idle_timeout: 1800s
             headers_with_underscores_action: REJECT_REQUEST

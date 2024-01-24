@@ -48,7 +48,7 @@
             return builder;
         }
 
-        private sealed class SerilogOptions
+        internal sealed class SerilogOptions
         {
             public bool UseConsole { get; set; } = true;
             public string? SeqUrl { get; set; }

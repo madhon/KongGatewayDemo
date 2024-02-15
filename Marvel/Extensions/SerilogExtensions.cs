@@ -1,5 +1,9 @@
 ﻿namespace Marvel.Extensions
 {
+    using Serilog;
+    using Serilog.Events;
+    using Serilog.Exceptions;
+    using Serilog.Settings.Configuration;
     using Serilog.Sinks.Grafana.Loki;
 
     public static class SerilogExtensions
@@ -48,6 +52,17 @@
             return builder;
         }
 
+        public static WebApplication UseSerilogRequestLogging(this WebApplication app)
+        {
+            app.UseSerilogRequestLogging(opts =>
+            {
+                opts.EnrichDiagnosticContext = SerilogExtensions.EnrichFromRequest;
+                opts.GetLevel = SerilogExtensions.ExcludeHealthChecks;
+            });
+
+            return app;
+        }
+
         internal sealed class SerilogOptions
         {
             public bool UseConsole { get; set; } = true;
@@ -58,7 +73,7 @@
                 "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} {Level:u3} - {Message:lj}{NewLine}{Exception}";
         }
 
-        public static void EnrichFromRequest(IDiagnosticContext diagnosticContext, HttpContext httpContext)
+        private static void EnrichFromRequest(IDiagnosticContext diagnosticContext, HttpContext httpContext)
         {
             var request = httpContext.Request;
 
@@ -84,7 +99,7 @@
             }
         }
 
-        public static LogEventLevel ExcludeHealthChecks(HttpContext ctx, double _, Exception? ex) =>
+        private static LogEventLevel ExcludeHealthChecks(HttpContext ctx, double _, Exception? ex) =>
             ex != null
                 ? LogEventLevel.Error
                 : ctx.Response.StatusCode > 499

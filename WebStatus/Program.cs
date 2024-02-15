@@ -32,7 +32,7 @@ app.UseHealthChecksUI(config =>
 
 app.MapGet(string.IsNullOrEmpty(pathBase)
     ? "/"
-    : pathBase, () => Results.LocalRedirect("~/healthchecks-ui"));
+    : pathBase, () => TypedResults.LocalRedirect("~/healthchecks-ui"));
 
 app.MapHealthChecksUI();
 

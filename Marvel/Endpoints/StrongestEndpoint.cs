@@ -1,8 +1,5 @@
 ﻿namespace Marvel.Endpoints
 {
-    using System.Security.Cryptography;
-    using ILogger = Microsoft.Extensions.Logging.ILogger;
-
     public static partial class StrongestEndpoint
     {
         private static readonly string[] Characters = new[]
@@ -13,20 +10,18 @@
 
         public static IEndpointRouteBuilder MapStrongestEndpoint(this IEndpointRouteBuilder builder)
         {
-
-            builder.MapGet("avengers/strongest", (ILoggerFactory loggerFactory) =>
+            builder.MapGet("avengers/strongest",  Results<Ok<string>, BadRequest, ProblemHttpResult> (ILoggerFactory loggerFactory) =>
                 {
-                    var logger = loggerFactory.CreateLogger("MavellAvengers");
+                    var logger = loggerFactory.CreateLogger("Avengers");
                     logger.LogBeginAvengersEndpoint();
 
                     var rnd = RandomNumberGenerator.Create();
 
                     logger.LogEndAvengersEndpoint();
-                    return Results.Ok(Characters[rnd.Next(0, Characters.Length)]);
+                    return TypedResults.Ok(Characters[rnd.Next(0, Characters.Length)]);
                 })
                 .WithName("GetStrongest")
                 .WithOpenApi();
-
 
             return builder;
         }

@@ -1,8 +1,6 @@
 ﻿namespace DC.Endpoints
 {
-    using System.Security.Cryptography;
-
-    public static class StrongestEndpoint
+    public static partial class StrongestEndpoint
     {
         private static readonly string[] Characters = new[]
         {
@@ -12,21 +10,25 @@
 
         public static IEndpointRouteBuilder MapStrongestEndpoint(this IEndpointRouteBuilder builder)
         {
-
-            builder.MapGet("justiceleague/strongest", () =>
+            builder.MapGet("justiceleague/strongest",  Results<Ok<string>, BadRequest, ProblemHttpResult> (ILoggerFactory loggerFactory) =>
             {
+                var logger = loggerFactory.CreateLogger("JusticeLeague");
+                logger.LogBeginJusticeLeagueEndpoint();
+                
                 var rnd = RandomNumberGenerator.Create();
-                return Results.Ok(Characters[rnd.Next(0, Characters.Length)]);
+                
+                logger.LogEndJusticeLeagueEndpoint();
+                return TypedResults.Ok(Characters[rnd.Next(0, Characters.Length)]);
             })
                 .WithName("GetStrongest")
-                .Produces(StatusCodes.Status200OK)
-                .Produces(StatusCodes.Status400BadRequest)
-                .Produces(StatusCodes.Status429TooManyRequests)
                 .WithOpenApi();
-                
-
             return builder;
         }
+        
+        [LoggerMessage(10001, LogLevel.Information, "Begin justiceleague/strongest")]
+        private static partial void LogBeginJusticeLeagueEndpoint(this ILogger logger);
 
+        [LoggerMessage(10002, LogLevel.Information, "End justiceleague/strongest")]
+        private static partial void LogEndJusticeLeagueEndpoint(this ILogger logger);
     }
 }

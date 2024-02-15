@@ -1,7 +1,9 @@
+version: "3.8"
+
 services: 
     envoygateway:
         container_name: envoygateway
-        image: envoyproxy/envoy-distroless:v1.29.0
+        image: envoyproxy/envoy-distroless:v1.29.1
         pull_policy: missing
         restart: unless-stopped
         ports:
@@ -18,7 +20,7 @@ services:
 
     envoygateway-dapr:
         container_name: envoygateway-dapr
-        image: daprio/daprd:1.12.4-mariner-linux-amd64
+        image: daprio/daprd:1.12.5-mariner-linux-amd64
         network_mode: "service:envoygateway"
         depends_on:
             - envoygateway
@@ -30,7 +32,7 @@ services:
          
     dapr-placement:
         container_name: placement
-        image: daprio/placement:1.12.4-mariner-linux-amd64
+        image: daprio/placement:1.12.5-mariner-linux-amd64
         pull_policy: missing        
         command: ["./placement", "-port", "50000", "-log-level", "debug"]
         ports:
@@ -42,7 +44,9 @@ services:
             context: .
             dockerfile: WebStatus/Dockerfile
         environment:
-            - ASPNETCORE_URLS=http://0.0.0.0:8080
+            - ASPNETCORE_HTTP_PORTS=8080
+            - ASPNETCORE_ENVIRONMENT=Development
+            - DOTNET_RUNNING_IN_CONTAINER=true
             - HealthChecksUI__HealthChecks__0__Name=DC
             - HealthChecksUI__HealthChecks__0__Uri=http://dcservice/hc
             - HealthChecksUI__HealthChecks__1__Name=Marvel
@@ -56,12 +60,8 @@ services:
         build: 
             context: .
             dockerfile: DC/Dockerfile
-        #ports: 
-        #  - "7001:80"
-        #  - "7002:443"
         environment:
-            ASPNETCORE_URLS: "http://+"
-            ASPNETCORE_HTTPS_PORT: "7002"
+            ASPNETCORE_HTTP_PORTS: "80"
             ASPNETCORE_ENVIRONMENT: "Development"
             DOTNET_RUNNING_IN_CONTAINER : "true"
             DOTNET_SYSTEM_GLOBALIZATION_INVARIANT : "1"
@@ -72,7 +72,7 @@ services:
 
     dcservice-dapr:
         container_name: dcservice-dapr
-        image: daprio/daprd:1.12.4-mariner-linux-amd64
+        image: daprio/daprd:1.12.5-mariner-linux-amd64
         pull_policy: missing        
         network_mode: "service:dcservice"
         depends_on:
@@ -89,24 +89,20 @@ services:
         build: 
             context: .
             dockerfile: Marvel/Dockerfile
-        #ports: 
-        #  - "7003:80"
-        #  - "7004:443"
         environment:
-            ASPNETCORE_URLS: "http://+"
-            ASPNETCORE_HTTPS_PORT: "7004"
+            ASPNETCORE_HTTP_PORTS: "80"
             ASPNETCORE_ENVIRONMENT: "Development"
             DOTNET_RUNNING_IN_CONTAINER : "true"
             DOTNET_SYSTEM_GLOBALIZATION_INVARIANT : "1"
             #Serilog__LokiUrl : "http://loki:3100"
-            Serilog__SeqUrl : "http://seq:5431"
+            #Serilog__SeqUrl : "http://seq:5431"
         volumes:
              - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
              - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/
 
     marvelservice-dapr:
         container_name: marvelservice-dapr
-        image: daprio/daprd:1.12.4-mariner-linux-amd64
+        image: daprio/daprd:1.12.5-mariner-linux-amd64
         pull_policy: missing        
         network_mode: "service:marvelservice"
         depends_on:
@@ -117,13 +113,13 @@ services:
           "-placement-host-address", "placement:50000"
         ]
     
-    seq:
-        container_name: seq
-        image: datalust/seq:latest
-        ports:
-            - "5341:80"
-        environment:
-            - ACCEPT_EULA=Y
+    #seq:
+    #    container_name: seq
+    #    image: datalust/seq:latest
+    #    ports:
+    #        - "5341:80"
+    #    environment:
+    #        - ACCEPT_EULA=Y
 
     #loki:
     #    container_name: loki

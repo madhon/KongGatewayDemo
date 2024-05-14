@@ -32,6 +32,14 @@
 		<PackageReference Include="Serilog.Sinks.Seq" />
 		<PackageReference Include="Swashbuckle.AspNetCore" />
 		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" />
+		<PackageReference Include="Roslynator.Analyzers">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Roslynator.Formatting.Analyzers">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 

@@ -43,15 +43,12 @@ builder.Services.AddProblemDetails();
 
 });*/
 
-
 var app = builder.Build();
 
 app.UseForwardedHeaders();
 
 app.UseRouting();
 //app.UseAuthorization();
-
-
 
 app.UseExceptionHandler();
 app.UseStatusCodePages();

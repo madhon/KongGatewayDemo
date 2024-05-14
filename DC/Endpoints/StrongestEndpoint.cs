@@ -14,9 +14,9 @@
             {
                 var logger = loggerFactory.CreateLogger("JusticeLeague");
                 logger.LogBeginJusticeLeagueEndpoint();
-                
+
                 var rnd = RandomNumberGenerator.Create();
-                
+
                 logger.LogEndJusticeLeagueEndpoint();
                 return TypedResults.Ok(Characters[rnd.Next(0, Characters.Length)]);
             })
@@ -24,7 +24,7 @@
                 .WithOpenApi();
             return builder;
         }
-        
+
         [LoggerMessage(10001, LogLevel.Information, "Begin justiceleague/strongest")]
         private static partial void LogBeginJusticeLeagueEndpoint(this ILogger logger);
 

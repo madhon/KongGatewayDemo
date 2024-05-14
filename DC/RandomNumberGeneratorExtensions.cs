@@ -6,9 +6,9 @@ public static class RandomNumberGeneratorExtensions
 {
 	public static int Next(this RandomNumberGenerator generator, int min, int max)
 	{
-		// match Next of Random
-		// where max is exclusive
-		max = max - 1;
+        // match Next of Random
+        // where max is exclusive
+        max--;
 
 		var bytes = new byte[sizeof(int)]; // 4 bytes
 		generator.GetNonZeroBytes(bytes);

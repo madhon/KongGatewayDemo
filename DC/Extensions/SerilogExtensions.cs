@@ -52,7 +52,7 @@
 
             return app;
         }
-        
+
         private static void EnrichFromRequest(IDiagnosticContext diagnosticContext, HttpContext httpContext)
         {
             var request = httpContext.Request;
@@ -85,7 +85,7 @@
                 : ctx.Response.StatusCode > 499
                     ? LogEventLevel.Error
                     : LogEventLevel.Debug;
-        
+
         internal sealed class SerilogOptions
         {
             public bool UseConsole { get; set; } = true;

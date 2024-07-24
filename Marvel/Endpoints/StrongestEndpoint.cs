@@ -2,11 +2,11 @@
 {
     public static partial class StrongestEndpoint
     {
-        private static readonly string[] Characters = new[]
-        {
+        private static readonly string[] Characters =
+        [
             "Iron Man", "Hulk", "Thor", "Captain America", "Black Widow", "Hawkeye", "War Machine", "Quicksilver",
             "Scarlet Witch", "Spider-Man", "Ant-Man", "Deadpool"
-        };
+        ];
 
         public static IEndpointRouteBuilder MapStrongestEndpoint(this IEndpointRouteBuilder builder)
         {

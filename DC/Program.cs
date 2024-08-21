@@ -11,7 +11,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDaprClient(null);
+builder.Services.AddDaprClient();
 
 builder.Services.AddHealthChecks();
 

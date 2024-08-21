@@ -20,7 +20,7 @@ services:
 
     envoygateway-dapr:
         container_name: envoygateway-dapr
-        image: daprio/daprd:1.13.5-mariner-linux-amd64
+        image: daprio/daprd:1.14.1-mariner-linux-amd64
         network_mode: "service:envoygateway"
         depends_on:
             - envoygateway
@@ -32,7 +32,7 @@ services:
          
     dapr-placement:
         container_name: placement
-        image: daprio/placement:1.13.5-mariner-linux-amd64
+        image: daprio/placement:1.14.1-mariner-linux-amd64
         pull_policy: missing        
         command: ["./placement", "-port", "50000", "-log-level", "debug"]
         ports:
@@ -72,7 +72,7 @@ services:
 
     dcservice-dapr:
         container_name: dcservice-dapr
-        image: daprio/daprd:1.13.5-mariner-linux-amd64
+        image: daprio/daprd:1.14.1-mariner-linux-amd64
         pull_policy: missing        
         network_mode: "service:dcservice"
         depends_on:
@@ -102,7 +102,7 @@ services:
 
     marvelservice-dapr:
         container_name: marvelservice-dapr
-        image: daprio/daprd:1.13.5-mariner-linux-amd64
+        image: daprio/daprd:1.14.1-mariner-linux-amd64
         pull_policy: missing        
         network_mode: "service:marvelservice"
         depends_on:

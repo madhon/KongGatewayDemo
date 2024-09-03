@@ -155,7 +155,7 @@ static_resources:
             address:
               socket_address:
                 address: dcservice
-                port_value: 80
+                port_value: 8080
   - name: marvel_service
     connect_timeout: 0.25s
     type: LOGICAL_DNS
@@ -169,4 +169,4 @@ static_resources:
             address:
               socket_address:
                 address: marvelservice
-                port_value: 80
+                port_value: 8080

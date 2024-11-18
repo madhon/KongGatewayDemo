@@ -1,7 +1,7 @@
 services: 
     envoygateway:
         container_name: envoygateway
-        image: envoyproxy/envoy-distroless:v1.32.0
+        image: envoyproxy/envoy-distroless:v1.32.1
         pull_policy: missing
         restart: unless-stopped
         ports:

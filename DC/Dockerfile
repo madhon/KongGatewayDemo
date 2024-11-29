@@ -1,5 +1,5 @@
-﻿ARG VERSION=8.0-azurelinux3.0-distroless
-ARG SDKVERSION=8.0-azurelinux3.0
+﻿ARG VERSION=9.0-azurelinux3.0-distroless
+ARG SDKVERSION=9.0-azurelinux3.0
 
 FROM mcr.microsoft.com/dotnet/aspnet:$VERSION AS base
 WORKDIR /app

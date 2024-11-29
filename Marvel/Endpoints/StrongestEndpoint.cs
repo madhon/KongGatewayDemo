@@ -20,7 +20,7 @@
                     logger.LogEndAvengersEndpoint();
                     return TypedResults.Ok(Characters[rnd.Next(0, Characters.Length)]);
                 })
-                .WithName("GetStrongest")
+                .WithName(nameof(StrongestEndpoint))
                 .WithOpenApi();
 
             return builder;

@@ -89,13 +89,13 @@
             }
 
             // Set the content-type of the Response at this point
-            diagnosticContext.Set("ContentType", httpContext.Response.ContentType);
+            diagnosticContext.Set("ContentType", httpContext.Response.ContentType!);
 
             // Retrieve the IEndpointFeature selected for the request
             var endpoint = httpContext.GetEndpoint();
             if (endpoint is object) // endpoint != null
             {
-                diagnosticContext.Set("EndpointName", endpoint.DisplayName);
+                diagnosticContext.Set("EndpointName", endpoint.DisplayName!);
             }
         }
 

@@ -12,7 +12,6 @@ builder.Services
 
 builder.Logging.AddJsonConsole();
 
-
 var app = builder.Build();
 
 app.UseForwardedHeaders();

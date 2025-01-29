@@ -26,6 +26,7 @@
 		<PackageReference Include="Serilog.Sinks.Async" />
 		<PackageReference Include="Serilog.Sinks.Console" />
 		<PackageReference Include="Serilog.Sinks.Seq" />
+		<PackageReference Include="Serilog.Sinks.Grafana.Loki" />		
 		<PackageReference Include="Scalar.AspNetCore" />
 		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" />
 	</ItemGroup>

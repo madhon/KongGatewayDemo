@@ -1,7 +1,7 @@
 services: 
     envoygateway:
         container_name: envoygateway
-        image: envoyproxy/envoy-distroless:v1.32.3
+        image: envoyproxy/envoy-distroless:v1.33.0
         pull_policy: missing
         restart: unless-stopped
         ports:
@@ -62,6 +62,8 @@ services:
             ASPNETCORE_ENVIRONMENT: "Development"
             DOTNET_RUNNING_IN_CONTAINER : "true"
             DOTNET_SYSTEM_GLOBALIZATION_INVARIANT : "1"
+            Serilog__LokiUrl : "http://loki:3100"
+            #Serilog__SeqUrl : "http://seq:5431"            
         volumes:
              - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
              - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/
@@ -90,7 +92,7 @@ services:
             ASPNETCORE_ENVIRONMENT: "Development"
             DOTNET_RUNNING_IN_CONTAINER : "true"
             DOTNET_SYSTEM_GLOBALIZATION_INVARIANT : "1"
-            #Serilog__LokiUrl : "http://loki:3100"
+            Serilog__LokiUrl : "http://loki:3100"
             #Serilog__SeqUrl : "http://seq:5431"
         volumes:
              - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
@@ -117,23 +119,23 @@ services:
     #    environment:
     #        - ACCEPT_EULA=Y
 
-    #loki:
-    #    container_name: loki
-    #    image: grafana/loki:3.1.0-amd64
-    #    ports:
-    #        - "3100:3100"
-    #    volumes:
-    #        - ./loki/loki-config.yaml:/etc/loki/loki-config.yaml
-    #    command: -config.file=/etc/loki/loki-config.yaml
+    loki:
+        container_name: loki
+        image: grafana/loki:3.3.2-amd64
+        ports:
+            - "3100:3100"
+        volumes:
+            - ./loki/loki-config.yaml:/etc/loki/loki-config.yaml
+        command: -config.file=/etc/loki/loki-config.yaml
 
-    #grafana:
-    #    container_name: grafana
-    #    image: grafana/grafana:11.1.0
-    #    environment:
-    #        - GF_AUTH_ANONYMOUS_ENABLED=true
-    #        - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-    #        - GF_AUTH_DISABLE_LOGIN_FORM=true
-    #    #volumes:
-    #    #    - ./loki/ds.yaml:/etc/grafana/provisioning/datasources/datasources.yml
-    #    ports:
-    #        - "3000:3000"
+    grafana:
+        container_name: grafana
+        image: grafana/grafana:11.5.0
+        environment:
+            - GF_AUTH_ANONYMOUS_ENABLED=true
+            - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+            - GF_AUTH_DISABLE_LOGIN_FORM=true
+        volumes:
+            - ./loki/ds.yaml:/etc/grafana/provisioning/datasources/datasources.yml
+        ports:
+            - "3000:3000"

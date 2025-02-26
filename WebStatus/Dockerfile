@@ -9,10 +9,6 @@ ENV DOTNET_RUNNING_IN_CONTAINER="true"
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT="0"
 EXPOSE 8080/tcp
 
-#RUN apk add --upgrade --no-cache apk-tools openssl icu-libs tzdata
-
-#HEALTHCHECK --interval=5s --timeout=5s --retries=3 CMD wget http://127.0.0.1:80/healthz -q -O - > /dev/null 2>&1
-
 FROM mcr.microsoft.com/dotnet/sdk:$SDKVERSION  AS build
 WORKDIR /src
 

@@ -38,13 +38,13 @@ public static class SerilogExtensions
             {
                 loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl);
             }
-                
+
             if (!string.IsNullOrEmpty(serilogOptions.LokiUrl))
             {
                 loggerConfiguration.WriteTo.GrafanaLoki(serilogOptions.LokiUrl,
                     labels: new List<LokiLabel>
                     {
-                        new() { Key = "app", Value = "Marvell" },
+                        new() { Key = "app", Value = "DC" },
                     });
             }
         });
@@ -83,18 +83,26 @@ public static class SerilogExtensions
 
         // Retrieve the IEndpointFeature selected for the request
         var endpoint = httpContext.GetEndpoint();
-        if (endpoint is object) // endpoint != null
+        if (endpoint is not null) // endpoint != null
         {
             diagnosticContext.Set("EndpointName", endpoint.DisplayName!);
         }
     }
 
-    private static LogEventLevel ExcludeHealthChecks(HttpContext ctx, double _, Exception? ex) =>
-        ex != null
-            ? LogEventLevel.Error
-            : ctx.Response.StatusCode > 499
-                ? LogEventLevel.Error
-                : LogEventLevel.Debug;
+    private static LogEventLevel ExcludeHealthChecks(HttpContext ctx, double _, Exception? ex)
+    {
+        if (ex != null)
+        {
+            return LogEventLevel.Error;
+        }
+
+        if (ctx.Response.StatusCode > 499)
+        {
+            return LogEventLevel.Error;
+        }
+
+        return LogEventLevel.Debug;
+    }
 
     internal sealed class SerilogOptions
     {

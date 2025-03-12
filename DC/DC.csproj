@@ -31,5 +31,9 @@
 		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\ComicTelemetry\ComicTelemetry.csproj" />
+	</ItemGroup>
+
 
 </Project>

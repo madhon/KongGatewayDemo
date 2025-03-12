@@ -1,8 +1,11 @@
-﻿using Scalar.AspNetCore;
+﻿using ComicTelemetry;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddSerilog();
+
+builder.ConfigureOpenTelemetry("Marvel");
 
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
@@ -38,9 +41,10 @@ app.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false })
 app.MapHealthChecks("/hc", new HealthCheckOptions
 {
     Predicate = _ => true,
-    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
 });
 
+app.MapPrometheusScrapingEndpoint();
 app.MapStrongestEndpoint();
 
 app.UseSerilogRequestLogging();

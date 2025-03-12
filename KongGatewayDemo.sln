@@ -24,9 +24,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Envoy", "Envoy", "{4AC0D095
 		Envoy\envoy_none_dapr.yaml = Envoy\envoy_none_dapr.yaml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "prometheus", "prometheus", "{4AC0D096-1F1E-47A8-9E07-1B6AAEDBCD21}"
+	ProjectSection(SolutionItems) = preProject
+		prometheus\prometheus.yml = prometheus\prometheus.yml
+	EndProjectSection
+EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D44AC9FB-68F2-4113-86B1-97579339DC62}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStatus", "WebStatus\WebStatus.csproj", "{EFB10BAC-B6D3-4614-A20A-C605E1750127}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicTelemetry", "ComicTelemetry\ComicTelemetry.csproj", "{9CCBBCA7-6F2A-4277-A407-93F8EDDC9FA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +57,10 @@ Global
 		{EFB10BAC-B6D3-4614-A20A-C605E1750127}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFB10BAC-B6D3-4614-A20A-C605E1750127}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFB10BAC-B6D3-4614-A20A-C605E1750127}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CCBBCA7-6F2A-4277-A407-93F8EDDC9FA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CCBBCA7-6F2A-4277-A407-93F8EDDC9FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CCBBCA7-6F2A-4277-A407-93F8EDDC9FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CCBBCA7-6F2A-4277-A407-93F8EDDC9FA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,6 +19,7 @@ COPY "nuget.config" "nuget.config"
 COPY "docker-compose.dcproj" "docker-compose.dcproj"
 COPY "DC/DC.csproj" "DC/DC.csproj"
 COPY "Marvel/Marvel.csproj" "Marvel/Marvel.csproj"
+COPY "ComicTelemetry/ComicTelemetry.csproj" "ComicTelemetry/ComicTelemetry.csproj"
 COPY "WebStatus/WebStatus.csproj" "WebStatus/WebStatus.csproj"
 
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \

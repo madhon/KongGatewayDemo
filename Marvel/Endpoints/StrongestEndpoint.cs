@@ -24,7 +24,7 @@ public static partial class StrongestEndpoint
                 metrics.RecordCharacterRequest(character);
 
                 logger.LogEndAvengersEndpoint();
-                return TypedResults.Ok(Characters[rnd.Next(0, Characters.Length)]);
+                return TypedResults.Ok(character);
             })
             .WithName(nameof(StrongestEndpoint))
             .WithOpenApi();

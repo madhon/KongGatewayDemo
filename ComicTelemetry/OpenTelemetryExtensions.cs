@@ -1,12 +1,11 @@
-﻿namespace ComicTelemetry;
+﻿namespace Microsoft.Extensions.Hosting;
 
+using ComicTelemetry;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-
 
 public static class OpenTelemetryExtensions
 {

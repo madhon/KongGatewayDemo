@@ -1,4 +1,4 @@
-﻿using ComicTelemetry;
+﻿using Dc;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +12,9 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.ForwardedHeaders =
         ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 });
+
+builder.Services.ConfigureHttpJsonOptions(opts =>
+    opts.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();

@@ -6,5 +6,6 @@ global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 global using Microsoft.AspNetCore.HttpOverrides;
 global using HealthChecks.UI.Client;
 
+global using DC;
 global using DC.Extensions;
 global using DC.Endpoints;

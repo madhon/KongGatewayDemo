@@ -1,0 +1,25 @@
+<Solution>
+  <Folder Name="/Envoy/">
+    <File Path="Envoy/envoy.crt" />
+    <File Path="Envoy/envoy.yaml" />
+    <File Path="Envoy/envoy_key.pem" />
+    <File Path="Envoy/envoy_none_dapr.yaml" />
+  </Folder>
+  <Folder Name="/prometheus/">
+    <File Path="prometheus/prometheus.yml" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".dockerignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="docker-compose.yml" />
+    <File Path="nuget.config" />
+  </Folder>
+  <Project Path="ComicTelemetry/ComicTelemetry.csproj" />
+  <Project Path="DC/DC.csproj" />
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
+  <Project Path="Marvel/Marvel.csproj" />
+  <Project Path="WebStatus/WebStatus.csproj" />
+</Solution>

@@ -12,7 +12,7 @@ EXPOSE 8080/tcp
 FROM mcr.microsoft.com/dotnet/sdk:$SDKVERSION  AS build
 WORKDIR /src
 
-COPY "KongGatewayDemo.sln" "KongGatewayDemo.sln"
+COPY "KongGatewayDemo.slnx" "KongGatewayDemo.slnx"
 COPY "Directory.Packages.props" "Directory.Packages.props"
 COPY "Directory.Build.props" "Directory.Build.props"
 COPY "nuget.config" "nuget.config"
@@ -23,7 +23,7 @@ COPY "ComicTelemetry/ComicTelemetry.csproj" "ComicTelemetry/ComicTelemetry.cspro
 COPY "WebStatus/WebStatus.csproj" "WebStatus/WebStatus.csproj"
 
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
-    dotnet restore "KongGatewayDemo.sln"
+    dotnet restore "KongGatewayDemo.slnx"
 
 COPY . .
 WORKDIR /src/DC

@@ -1,7 +1,7 @@
 <Project>
   <ItemGroup Condition="'$(MSBuildProjectExtension)' != '.dcproj'">
     <!-- System packages -->
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.6.1" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.7.0" />
     <PackageVersion Include="System.Text.Json" Version="9.0.3" />
     <PackageVersion Include="System.Runtime.Caching" Version="9.0.3" />
     <!-- Microsoft packages -->
@@ -11,7 +11,7 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.3" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="9.0.3" />
     <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="9.3.0" />
-    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.6.1" />
+    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.7.0" />
     <!-- 3rd party packages -->
     <PackageVersion Include="Dapr.AspNetCore" Version="1.15.2" />
     <PackageVersion Include="Serilog" Version="4.2.0" />

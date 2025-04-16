@@ -1,4 +1,4 @@
-ARG VERSION=9.0-noble-chiseled-extra
+ARG VERSION=9.0-noble-chiseled
 ARG SDKVERSION=9.0-noble
 
 FROM mcr.microsoft.com/dotnet/aspnet:$VERSION AS base

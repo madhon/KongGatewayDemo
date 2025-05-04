@@ -40,7 +40,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.11.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.11.1" />    
     <!-- Analyzers -->
-    <GlobalPackageReference Include="Meziantou.Analyzer" Version="2.0.199">
+    <GlobalPackageReference Include="Meziantou.Analyzer" Version="2.0.201">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </GlobalPackageReference>

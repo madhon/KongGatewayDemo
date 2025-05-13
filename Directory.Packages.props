@@ -2,17 +2,17 @@
   <ItemGroup Condition="'$(MSBuildProjectExtension)' != '.dcproj'">
     <!-- System packages -->
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.9.0" />
-    <PackageVersion Include="System.Text.Json" Version="9.0.4" />
-    <PackageVersion Include="System.Runtime.Caching" Version="9.0.4" />
+    <PackageVersion Include="System.Text.Json" Version="9.0.5" />
+    <PackageVersion Include="System.Runtime.Caching" Version="9.0.5" />
     <!-- Microsoft packages -->
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
     <PackageVersion Include="Microsoft.OpenApi" Version="1.6.24" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.2" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.4" />
-    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="9.0.4" />
-    <PackageVersion Include="Microsoft.Extensions.Logging" Version="9.0.4" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="9.0.4" />
-    <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="9.4.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.5" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="9.0.5" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="9.0.5" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="9.0.5" />
+    <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="9.5.0" />
     <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.9.0" />
     <!-- 3rd party packages -->
     <PackageVersion Include="Dapr.AspNetCore" Version="1.15.4" />

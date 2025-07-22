@@ -1,7 +1,7 @@
 <Project>
   <ItemGroup Condition="'$(MSBuildProjectExtension)' != '.dcproj'">
     <!-- System packages -->
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.12.1" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.13.0" />
     <PackageVersion Include="System.Text.Json" Version="9.0.7" />
     <PackageVersion Include="System.Runtime.Caching" Version="9.0.7" />
     <!-- Microsoft packages -->
@@ -16,7 +16,7 @@
     <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="9.7.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.7" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.12.1" />
+    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.13.0" />
     <!-- 3rd party packages -->
     <PackageVersion Include="Dapr.AspNetCore" Version="1.15.4" />
     <PackageVersion Include="Serilog" Version="4.3.0" />
@@ -30,7 +30,7 @@
     <PackageVersion Include="Serilog.Sinks.Seq" Version="9.0.0" />
     <PackageVersion Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageVersion Include="Serilog.Sinks.Grafana.Loki" Version="8.3.1" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.6.3" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.6.4" />
     <PackageVersion Include="AspNetCore.HealthChecks.UI" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />

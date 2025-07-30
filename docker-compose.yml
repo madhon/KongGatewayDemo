@@ -1,7 +1,7 @@
 services: 
     envoygateway:
         container_name: envoygateway
-        image: envoyproxy/envoy-distroless:v1.34.3
+        image: envoyproxy/envoy-distroless:v1.35.0
         pull_policy: missing
         restart: unless-stopped
         ports:
@@ -130,7 +130,7 @@ services:
 
     grafana:
         container_name: grafana
-        image: grafana/grafana:12.0.2
+        image: grafana/grafana:12.1.0
         environment:
             - GF_AUTH_ANONYMOUS_ENABLED=true
             - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
@@ -142,7 +142,7 @@ services:
 
     prometheus:
         container_name: prometheus
-        image: prom/prometheus:v3.5.0
+        image: prom/prometheus:v3.5.3
         ports:
             - "9090:9090"
         volumes:

@@ -6,7 +6,7 @@
     <PackageVersion Include="System.Runtime.Caching" Version="9.0.8" />
     <!-- Microsoft packages -->
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
-    <PackageVersion Include="Microsoft.OpenApi" Version="1.6.24" />
+    <PackageVersion Include="Microsoft.OpenApi" Version="1.6.25" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.8" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="9.0.8" />

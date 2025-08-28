@@ -1,14 +1,17 @@
 ﻿namespace DC.Extensions;
 
+using System.Globalization;
 using Serilog;
 using Serilog.Events;
 using Serilog.Exceptions;
 using Serilog.Sinks.Grafana.Loki;
 
-public static class SerilogExtensions
+internal static class SerilogExtensions
 {
     public static WebApplicationBuilder AddSerilog(this WebApplicationBuilder builder, string sectionName = "Serilog")
     {
+        ArgumentNullException.ThrowIfNull(builder);
+
         var serilogOptions = new SerilogOptions();
         builder.Configuration.GetSection(sectionName).Bind(serilogOptions);
 
@@ -26,13 +29,13 @@ public static class SerilogExtensions
             {
                 loggerConfiguration.WriteTo.Async(writeTo =>
                 {
-                    writeTo.Console(outputTemplate: serilogOptions.LogTemplate);
+                    writeTo.Console(outputTemplate: serilogOptions.LogTemplate, formatProvider: CultureInfo.InvariantCulture);
                 });
             }
 
             if (!string.IsNullOrEmpty(serilogOptions.SeqUrl))
             {
-                loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl);
+                loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl, formatProvider: CultureInfo.InvariantCulture);
             }
 
             if (!string.IsNullOrEmpty(serilogOptions.LokiUrl))

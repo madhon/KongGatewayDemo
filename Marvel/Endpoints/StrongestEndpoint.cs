@@ -2,7 +2,7 @@
 
 using ComicTelemetry;
 
-public static partial class StrongestEndpoint
+internal static partial class StrongestEndpoint
 {
     private static readonly string[] Characters =
     [

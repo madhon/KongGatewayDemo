@@ -2,7 +2,7 @@
 
 using System.Security.Cryptography;
 
-public static class RandomNumberGeneratorExtensions
+internal static class RandomNumberGeneratorExtensions
 {
 	public static int Next(this RandomNumberGenerator generator, int min, int max)
 	{

@@ -16,4 +16,9 @@
         <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
     </ItemGroup>
     
+    <ItemGroup>
+        <AdditionalFiles Include="..\Bannedsymbols.txt" />
+    </ItemGroup>
+
+
 </Project>

@@ -1,7 +1,6 @@
 ﻿namespace DC;
 
-public static class RateLimitPolicy
+internal static class RateLimitPolicy
 {
     public const string Fixed = "Fixed";
-
 }

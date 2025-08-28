@@ -1,4 +1,4 @@
-﻿namespace Dc;
+﻿namespace DC;
 
 using System.Text.Json;
 using System.Text.Json.Serialization;

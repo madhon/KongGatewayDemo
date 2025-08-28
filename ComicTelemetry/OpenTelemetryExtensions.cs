@@ -11,6 +11,8 @@ public static class OpenTelemetryExtensions
 {
     public static IHostApplicationBuilder ConfigureOpenTelemetry(this IHostApplicationBuilder builder, string serviceName, string serviceVersion = "1.0.0")
     {
+        ArgumentNullException.ThrowIfNull(builder);
+
         var resourceBuilder = ResourceBuilder.CreateDefault()
             .AddService(serviceName, serviceVersion: serviceVersion);
 
@@ -52,7 +54,7 @@ public static class OpenTelemetryExtensions
         }
 
         builder.Services.AddOpenTelemetry()
-            .WithMetrics(metrics => 
+            .WithMetrics(metrics =>
                 metrics.AddPrometheusExporter(options => options.DisableTotalNameSuffixForCounters = true));
 
         return builder;

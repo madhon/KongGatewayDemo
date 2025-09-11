@@ -14,13 +14,13 @@ public class ApplicationMetrics
     public ApplicationMetrics(string serviceName)
     {
         _serviceName = serviceName;
-        _characterRequests = Meter.CreateCounter<long>($"{serviceName.ToLower(CultureInfo.InvariantCulture)}.character.requests",
+        _characterRequests = Meter.CreateCounter<long>($"{serviceName.ToLowerInvariant()}.character.requests",
             description: "Counts the number of character requests");
     }
 
     public void RecordCharacterRequest(string character)
     {
-        _characterRequests.Add(1, new KeyValuePair<string, object?>("character", character), 
+        _characterRequests.Add(1, new KeyValuePair<string, object?>("character", character),
             new KeyValuePair<string, object?>("service", _serviceName));
     }
 }

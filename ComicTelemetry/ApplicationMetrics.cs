@@ -13,8 +13,10 @@ public class ApplicationMetrics
 
     public ApplicationMetrics(string serviceName)
     {
+        ArgumentNullException.ThrowIfNull(serviceName);
+
         _serviceName = serviceName;
-        _characterRequests = Meter.CreateCounter<long>($"{serviceName.ToLowerInvariant()}.character.requests",
+        _characterRequests = Meter.CreateCounter<long>($"{serviceName}.character.requests",
             description: "Counts the number of character requests");
     }
 

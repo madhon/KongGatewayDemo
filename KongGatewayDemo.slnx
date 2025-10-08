@@ -14,12 +14,11 @@
     <File Path="Directory.Packages.props" />
     <File Path="docker-compose.yml" />
     <File Path="nuget.config" />
+    <File Path="global.json" />
   </Folder>
   <Project Path="ComicTelemetry/ComicTelemetry.csproj" />
   <Project Path="DC/DC.csproj" />
-  <Project Path="docker-compose.dcproj">
-    <Build />
-  </Project>
+  <Project Path="docker-compose.dcproj" />
   <Project Path="Marvel/Marvel.csproj" />
   <Project Path="WebStatus/WebStatus.csproj" />
 </Solution>

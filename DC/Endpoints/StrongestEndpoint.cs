@@ -12,23 +12,24 @@ internal static partial class StrongestEndpoint
 
     public static IEndpointRouteBuilder MapStrongestEndpoint(this IEndpointRouteBuilder builder)
     {
-        builder.MapGet("justiceleague/strongest",  Results<Ok<string>, BadRequest, ProblemHttpResult> (
-            ILoggerFactory loggerFactory, ApplicationMetrics metrics) =>
-            {
-                var logger = loggerFactory.CreateLogger("JusticeLeague");
-                logger.LogBeginJusticeLeagueEndpoint();
-
-                var rnd = RandomNumberGenerator.Create();
-                var character = Characters[rnd.Next(0, Characters.Length)];
-
-                metrics.RecordCharacterRequest(character);
-
-                logger.LogEndJusticeLeagueEndpoint();
-                return TypedResults.Ok(character);
-            })
+        builder.MapGet("justiceleague/strongest", Handle)
             .WithName(nameof(StrongestEndpoint))
             .WithOpenApi();
         return builder;
+    }
+
+    private static Results<Ok<string>, BadRequest, ProblemHttpResult> Handle(
+        ILoggerFactory loggerFactory, ApplicationMetrics metrics)
+    {
+        var logger = loggerFactory.CreateLogger("Avengers");
+        logger.LogBeginJusticeLeagueEndpoint();
+
+        var character = Characters[RandomNumberGenerator.GetInt32(0, Characters.Length)];
+
+        metrics.RecordCharacterRequest(character);
+
+        logger.LogEndJusticeLeagueEndpoint();
+        return TypedResults.Ok(character);
     }
 
     [LoggerMessage(10001, LogLevel.Information, "Begin justiceleague/strongest")]

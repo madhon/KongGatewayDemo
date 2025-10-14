@@ -1,7 +1,7 @@
 services: 
     envoygateway:
         container_name: envoygateway
-        image: envoyproxy/envoy:distroless-v1.35.3
+        image: envoyproxy/envoy:distroless-v1.35.4
         pull_policy: missing
         restart: unless-stopped
         ports:
@@ -121,7 +121,7 @@ services:
 
     loki:
         container_name: loki
-        image: grafana/loki:3.5.6-amd64
+        image: grafana/loki:3.5.7-amd64
         ports:
             - "3100:3100"
         volumes:

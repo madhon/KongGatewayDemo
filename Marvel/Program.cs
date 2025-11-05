@@ -18,7 +18,7 @@ builder.Services.ConfigureHttpJsonOptions(opts =>
     opts.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default));
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(opts => opts.AddScalarTransformers());
 
 builder.Services.AddDaprClient();
 

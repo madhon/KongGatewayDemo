@@ -19,6 +19,7 @@
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
 		<PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" />
 		<PackageReference Include="Dapr.AspNetCore" />
+		<PackageReference Include="Scalar.AspNetCore.Microsoft" />
 		<PackageReference Include="Serilog" />
 		<PackageReference Include="Serilog.AspNetCore" />
 		<PackageReference Include="Serilog.Enrichers.Environment" />

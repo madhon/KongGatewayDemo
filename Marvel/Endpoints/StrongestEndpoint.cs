@@ -13,8 +13,7 @@ internal static partial class StrongestEndpoint
     public static IEndpointRouteBuilder MapStrongestEndpoint(this IEndpointRouteBuilder builder)
     {
         builder.MapGet("avengers/strongest",  Handle)
-            .WithName(nameof(StrongestEndpoint))
-            .WithOpenApi();
+            .WithName(nameof(StrongestEndpoint));
 
         return builder;
     }

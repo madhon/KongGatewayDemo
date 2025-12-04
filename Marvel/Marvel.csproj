@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <LangVersion>1$.0</LangVersion>
+    <LangVersion>14.0</LangVersion>
     <TieredCompilation>true</TieredCompilation>
     <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
     <AspNetCoreModuleName>AspNetCoreModuleV2</AspNetCoreModuleName>

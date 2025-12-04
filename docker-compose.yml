@@ -1,7 +1,7 @@
 services: 
     envoygateway:
         container_name: envoygateway
-        image: envoyproxy/envoy:distroless-v1.36.0
+        image: envoyproxy/envoy:distroless-v1.36.3
         pull_policy: missing
         restart: unless-stopped
         ports:
@@ -142,7 +142,7 @@ services:
 
     prometheus:
         container_name: prometheus
-        image: prom/prometheus:v3.7.3
+        image: prom/prometheus:v3.8.0
         ports:
             - "9090:9090"
         volumes:

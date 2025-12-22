@@ -6,7 +6,7 @@
     <PackageVersion Include="System.Runtime.Caching" Version="10.0.1" />
     <!-- Microsoft packages -->
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
-    <PackageVersion Include="Microsoft.OpenApi" Version="2.3.12" />
+    <PackageVersion Include="Microsoft.OpenApi" Version="2.4.1" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="10.0.1" />
@@ -30,8 +30,8 @@
     <PackageVersion Include="Serilog.Sinks.Seq" Version="9.0.0" />
     <PackageVersion Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageVersion Include="Serilog.Sinks.Grafana.Loki" Version="8.3.1" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.11.6" />
-    <PackageVersion Include="Scalar.AspNetCore.Microsoft" Version="2.11.6" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.11.9" />
+    <PackageVersion Include="Scalar.AspNetCore.Microsoft" Version="2.11.9" />
     <PackageVersion Include="AspNetCore.HealthChecks.UI" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
@@ -46,7 +46,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.14.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.14.0" />
     <!-- Analyzers -->
-    <GlobalPackageReference Include="Meziantou.Analyzer" Version="2.0.260">
+    <GlobalPackageReference Include="Meziantou.Analyzer" Version="2.0.264">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </GlobalPackageReference>

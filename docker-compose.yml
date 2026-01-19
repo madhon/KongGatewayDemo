@@ -1,7 +1,7 @@
 services: 
     envoygateway:
         container_name: envoygateway
-        image: envoyproxy/envoy:distroless-v1.36.4
+        image: envoyproxy/envoy:distroless-v1.37.0
         pull_policy: missing
         restart: unless-stopped
         ports:
@@ -18,7 +18,7 @@ services:
 
     envoygateway-dapr:
         container_name: envoygateway-dapr
-        image: daprio/daprd:1.16.5-mariner-linux-amd64
+        image: daprio/daprd:1.16.6-mariner-linux-amd64
         network_mode: "service:envoygateway"
         depends_on:
             - envoygateway
@@ -30,7 +30,7 @@ services:
          
     dapr-placement:
         container_name: placement
-        image: daprio/placement:1.16.5-mariner-linux-amd64
+        image: daprio/placement:1.16.6-mariner-linux-amd64
         pull_policy: missing        
         command: ["./placement", "-port", "50000", "-log-level", "debug"]
         ports:
@@ -70,7 +70,7 @@ services:
 
     dcservice-dapr:
         container_name: dcservice-dapr
-        image: daprio/daprd:1.16.5-mariner-linux-amd64
+        image: daprio/daprd:1.16.6-mariner-linux-amd64
         pull_policy: missing        
         network_mode: "service:dcservice"
         depends_on:
@@ -100,7 +100,7 @@ services:
 
     marvelservice-dapr:
         container_name: marvelservice-dapr
-        image: daprio/daprd:1.16.5-mariner-linux-amd64
+        image: daprio/daprd:1.16.6-mariner-linux-amd64
         pull_policy: missing        
         network_mode: "service:marvelservice"
         depends_on:
@@ -142,7 +142,7 @@ services:
 
     prometheus:
         container_name: prometheus
-        image: prom/prometheus:v3.8.1
+        image: prom/prometheus:v3.9.1
         ports:
             - "9090:9090"
         volumes:

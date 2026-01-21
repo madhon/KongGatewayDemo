@@ -121,7 +121,7 @@ services:
 
     loki:
         container_name: loki
-        image: grafana/loki:3.6.3-amd64
+        image: grafana/loki:3.6.4-amd64
         ports:
             - "3100:3100"
         volumes:

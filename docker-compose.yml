@@ -30,7 +30,7 @@ services:
          
     dapr-placement:
         container_name: placement
-        image: daprio/placement:1.16.6-mariner-linux-amd64
+        image: daprio/placement:1.16.8-mariner-linux-amd64
         pull_policy: missing        
         command: ["./placement", "-port", "50000", "-log-level", "debug"]
         ports:

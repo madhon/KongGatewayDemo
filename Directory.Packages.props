@@ -30,14 +30,14 @@
     <PackageVersion Include="Serilog.Sinks.Seq" Version="9.0.0" />
     <PackageVersion Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageVersion Include="Serilog.Sinks.Grafana.Loki" Version="8.3.2" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.12.41" />
-    <PackageVersion Include="Scalar.AspNetCore.Microsoft" Version="2.12.41" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.12.48" />
+    <PackageVersion Include="Scalar.AspNetCore.Microsoft" Version="2.12.48" />
     <PackageVersion Include="AspNetCore.HealthChecks.UI" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
     <PackageVersion Include="Portable.BouncyCastle" Version="1.9.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageVersion Include="KubernetesClient" Version="18.0.13" />
+    <PackageVersion Include="KubernetesClient" Version="19.0.2" />
     <!-- OpenTelemtry -->
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.15.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.0" />
@@ -46,7 +46,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.0" />
     <!-- Analyzers -->
-    <GlobalPackageReference Include="Meziantou.Analyzer" Version="3.0.2">
+    <GlobalPackageReference Include="Meziantou.Analyzer" Version="3.0.18">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </GlobalPackageReference>

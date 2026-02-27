@@ -6,7 +6,7 @@ internal static partial class StrongestEndpoint
 {
     private static readonly string[] Characters =
     [
-        "Batman", "Superman", "Deadshot", "Harley Quinn", "El Diable", "Killer Croc", "Enchantress", "Slipnot",
+        "Batman", "Superman", "Deadshot", "Harley Quinn", "El Diablo", "Killer Croc", "Enchantress", "Slipnot",
         "Katana", "The Flash", "Wonder Women", "Acquaman",
     ];
 
@@ -20,7 +20,7 @@ internal static partial class StrongestEndpoint
     private static Results<Ok<string>, BadRequest, ProblemHttpResult> Handle(
         ILoggerFactory loggerFactory, ApplicationMetrics metrics)
     {
-        var logger = loggerFactory.CreateLogger("Avengers");
+        var logger = loggerFactory.CreateLogger("DC");
         logger.LogBeginJusticeLeagueEndpoint();
 
         var character = Characters[RandomNumberGenerator.GetInt32(0, Characters.Length)];

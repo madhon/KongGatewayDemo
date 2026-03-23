@@ -14,7 +14,6 @@
     <File Path="Directory.Packages.props" />
     <File Path="docker-compose.yml" />
     <File Path="nuget.config" />
-    <File Path="global.json" />
   </Folder>
   <Project Path="ComicTelemetry/ComicTelemetry.csproj" />
   <Project Path="DC/DC.csproj" />

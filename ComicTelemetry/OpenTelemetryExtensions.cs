@@ -38,7 +38,7 @@ public static class OpenTelemetryExtensions
                     .AddHttpClientInstrumentation();
             });
 
-        builder.Services.AddSingleton<ApplicationMetrics>(sp => new ApplicationMetrics(serviceName));
+        builder.Services.AddSingleton<ApplicationMetrics>(_ => new ApplicationMetrics(serviceName));
 
         builder.AddOpenTelemetryExporters();
 

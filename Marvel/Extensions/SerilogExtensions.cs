@@ -41,10 +41,10 @@ internal static class SerilogExtensions
             if (!string.IsNullOrEmpty(serilogOptions.LokiUrl))
             {
                 loggerConfiguration.WriteTo.GrafanaLoki(serilogOptions.LokiUrl,
-                    labels: new List<LokiLabel>
-                    {
-                        new() { Key = "app", Value = "Marvell" },
-                    });
+                    labels:
+                    [
+                        new LokiLabel() { Key = "app", Value = "Marvell" },
+                    ]);
             }
         });
 

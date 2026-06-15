@@ -17,7 +17,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.8" />
     <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.19.1" />
     <!-- 3rd party packages -->
-    <PackageVersion Include="Dapr.AspNetCore" Version="1.17.9" />
+    <PackageVersion Include="Dapr.AspNetCore" Version="1.18.4" />
     <PackageVersion Include="Serilog" Version="4.3.1" />
     <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0" />
     <PackageVersion Include="Serilog.Extensions.Logging" Version="10.0.0" />

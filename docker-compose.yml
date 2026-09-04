@@ -1,7 +1,7 @@
 services: 
     envoygateway:
         container_name: envoygateway
-        image: envoyproxy/envoy:distroless-v1.39.0
+        image: envoyproxy/envoy:distroless-v1.39.1
         pull_policy: missing
         restart: unless-stopped
         ports:
@@ -121,7 +121,7 @@ services:
 
     loki:
         container_name: loki
-        image: grafana/loki:3.7.6-amd64
+        image: grafana/loki:3.7.7-amd64
         ports:
             - "3100:3100"
         volumes:
@@ -130,7 +130,7 @@ services:
 
     grafana:
         container_name: grafana
-        image: grafana/grafana:13.2.0-distroless-slim
+        image: grafana/grafana:13.2.1-distroless-slim
         environment:
             - GF_AUTH_ANONYMOUS_ENABLED=true
             - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin

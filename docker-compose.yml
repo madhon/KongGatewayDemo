@@ -18,7 +18,7 @@ services:
 
     envoygateway-dapr:
         container_name: envoygateway-dapr
-        image: daprio/daprd:1.18.5-mariner-linux-amd64
+        image: daprio/daprd:1.18.7-mariner-linux-amd64
         network_mode: "service:envoygateway"
         depends_on:
             - envoygateway

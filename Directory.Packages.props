@@ -12,17 +12,17 @@
     <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="11.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="11.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="11.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Telemetry.Abstractions" Version="11.0.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="11.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="11.0.0" />
     <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.23.0" />
     <!-- 3rd party packages -->
     <PackageVersion Include="Dapr.AspNetCore" Version="1.19.1" />
     <PackageVersion Include="Serilog" Version="4.4.0" />
-    <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0" />
-    <PackageVersion Include="Serilog.Extensions.Logging" Version="10.0.0" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="11.0.0" />
+    <PackageVersion Include="Serilog.Extensions.Logging" Version="11.0.0" />
     <PackageVersion Include="Serilog.Enrichers.Environment" Version="3.0.1" />
-    <PackageVersion Include="Serilog.Settings.Configuration" Version="10.0.1" />
+    <PackageVersion Include="Serilog.Settings.Configuration" Version="11.0.0" />
     <PackageVersion Include="Serilog.Exceptions" Version="8.4.0" />
     <PackageVersion Include="Serilog.Sinks.Async" Version="2.1.0" />
     <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1" />
@@ -30,8 +30,8 @@
     <PackageVersion Include="Serilog.Sinks.Seq" Version="9.1.0" />
     <PackageVersion Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageVersion Include="Serilog.Sinks.Grafana.Loki" Version="9.0.2" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="3.0.1" />
-    <PackageVersion Include="Scalar.AspNetCore.Microsoft" Version="3.0.1" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="3.2.0" />
+    <PackageVersion Include="Scalar.AspNetCore.Microsoft" Version="3.2.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.UI" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
@@ -41,12 +41,12 @@
     <!-- OpenTelemtry -->
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.21.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.21.0" />
-    <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.20.1-beta.1" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.20.2" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.20.2" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.20.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.21.0-beta.1" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.21.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.21.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.21.0" />
     <!-- Analyzers -->
-    <GlobalPackageReference Include="Meziantou.Analyzer" Version="3.0.341">
+    <GlobalPackageReference Include="Meziantou.Analyzer" Version="3.0.342">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </GlobalPackageReference>
